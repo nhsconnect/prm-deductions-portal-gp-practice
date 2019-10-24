@@ -1,13 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import styles from './App.scss';
 
-function App() {
-  return (
-    <div>
-        <img src={logo} className="logo" alt="logo" />
-    </div>
-  );
-}
+const App = () => (
+  <div>
+    <img src={logo} className={styles.logo} alt="logo"/>
+  </div>
+);
 
 export default App;
