@@ -9,8 +9,6 @@ phases:
       - export TF_WARN_OUTPUT_ERRORS=true
   build:
     commands:
-      - mkdir -p $CODEBUILD_SRC_DIR/terraform_outputs
-      - cd ./terraformscripts/${ENVIRONMENT}-${ACCOUNT_ID}/network 
-      - terragrunt init --terragrunt-source-update
-      - terragrunt validate
-      - terragrunt apply -auto-approve
+      - cd ./terraform 
+      - terraform init
+      - terraform apply -auto-approve -var-file="terraform.tfvars"
