@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Header = () => (
-  <header className="nhsuk-header nhsuk-header--transactional" role="banner">
+  <header className="nhsuk-header nhsuk-header--transactional" role="banner" data-testid="header">
     <div className="nhsuk-width-container nhsuk-header__container">
       <div className="nhsuk-header__logo">
         <a className="nhsuk-header__link" href="/" aria-label="NHS homepage">

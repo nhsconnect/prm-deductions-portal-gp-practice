@@ -1,11 +1,16 @@
 import React from 'react';
+import {BrowserRouter} from "react-router-dom";
 import Header from "./Header";
-import "./App.scss";
+import styles from "./App.module.scss";
+import DeductionContainer from "./DeductionContainer";
 
 const App = () => (
-  <div>
-    <Header />
-  </div>
+  <BrowserRouter>
+    <Header/>
+    <div className={styles.content}>
+      <DeductionContainer/>
+    </div>
+  </BrowserRouter>
 );
 
 export default App;
