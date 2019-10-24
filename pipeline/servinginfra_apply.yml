@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+
+  pre_build:
+    commands:
+      - chmod a+x ./utils/*
+      - eval $(./utils/aws-cli-assumerole.sh -r $ASSUME_ROLE_NAME)
+      - export TF_WARN_OUTPUT_ERRORS=true
+  build:
+    commands:
+      - mkdir -p $CODEBUILD_SRC_DIR/terraform_outputs
+      - cd ./terraformscripts/${ENVIRONMENT}-${ACCOUNT_ID}/network 
+      - terragrunt init --terragrunt-source-update
+      - terragrunt validate
+      - terragrunt apply -auto-approve
