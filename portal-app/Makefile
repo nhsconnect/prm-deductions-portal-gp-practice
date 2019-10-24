@@ -20,10 +20,10 @@ run-local:
 	yarn start
 
 run: ## Run container 
-	docker run -it -p 80:80 --name=$(APP_NAME) ${IMAGE_NAME} 
+	docker run -it -p 3000:3000 --name=$(APP_NAME) ${IMAGE_NAME} 
 
 run-d:
-	docker run -d -p 80:80 --name=$(APP_NAME) ${IMAGE_NAME}
+	docker run -d -p 3000:3000 --name=$(APP_NAME) ${IMAGE_NAME}
 
 stop: ## Stop and remove a running container
 	docker stop $(APP_NAME); docker rm $(APP_NAME)
