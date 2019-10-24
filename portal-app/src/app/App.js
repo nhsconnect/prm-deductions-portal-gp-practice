@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
-import styles from './App.scss';
+import Header from "./Header";
+import "./App.scss";
 
 const App = () => (
   <div>
-    <img src={logo} className={styles.logo} alt="logo"/>
+    <Header />
   </div>
 );
 
