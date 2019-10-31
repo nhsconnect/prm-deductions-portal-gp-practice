@@ -1,16 +1,15 @@
-import React from 'react';
-import {BrowserRouter} from "react-router-dom";
+import React, {Fragment} from 'react';
 import Header from "./Header";
 import styles from "./App.module.scss";
 import DeductionContainer from "./DeductionContainer";
 
 const App = () => (
-  <BrowserRouter>
+  <Fragment>
     <Header/>
     <div className={styles.content}>
       <DeductionContainer/>
     </div>
-  </BrowserRouter>
+  </Fragment>
 );
 
 export default App;
