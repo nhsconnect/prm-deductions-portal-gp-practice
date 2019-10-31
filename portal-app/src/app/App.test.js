@@ -21,7 +21,7 @@ describe('<App />', () => {
       </MemoryRouter>
     );
 
-    expect(getByTestId("deductions-form")).toBeTruthy();
+    expect(getByTestId("deduction-form")).toBeTruthy();
 
     const nhsNumberInput = getByLabelText('NHS Number');
     fireEvent.change(nhsNumberInput, {target: {value: 'some-nhs-number'}});

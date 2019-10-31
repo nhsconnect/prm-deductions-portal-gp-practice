@@ -9,12 +9,18 @@ const DeductionForm = ({submitDeduction}) => {
   };
 
   return (
-    <form data-testid="deductions-form" onSubmit={onSubmit}>
+    <form data-testid="deduction-form" onSubmit={onSubmit}>
       <div className="nhsuk-form-group">
         <label className="nhsuk-label" htmlFor="nhs-number">
           NHS Number
         </label>
-        <input className="nhsuk-input" id="nhs-number" name="nhs-number" type="text" onChange={event => setNhsNumber(event.target.value)}/>
+        <input
+          className="nhsuk-input"
+          id="nhs-number"
+          name="nhs-number"
+          type="text"
+          onChange={event => setNhsNumber(event.target.value)}
+        />
       </div>
       <button className="nhsuk-button" type="submit">
         Submit
