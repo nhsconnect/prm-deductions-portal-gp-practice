@@ -31,4 +31,34 @@ describe('<App />', () => {
 
     expect(getByTestId("confirmation")).toBeTruthy();
   });
+
+  it("should go to the success page when the confirm button is clicked on confirmation page", () => {
+    const {getByTestId, getByText} = render(
+      <MemoryRouter initialEntries={["/confirmation"]}>
+        <App/>
+      </MemoryRouter>
+    );
+
+    expect(getByTestId("confirmation")).toBeTruthy();
+
+    const confirmButton = getByText("Confirm");
+    fireEvent.click(confirmButton);
+
+    expect(getByTestId("success")).toBeTruthy();
+  });
+
+  it("should go back to the deduction form when the back button is clicked on confirmation page", () => {
+    const {getByTestId, getByText} = render(
+      <MemoryRouter initialEntries={["/confirmation"]}>
+        <App/>
+      </MemoryRouter>
+    );
+
+    expect(getByTestId("confirmation")).toBeTruthy();
+
+    const backButton = getByText("Go back");
+    fireEvent.click(backButton);
+
+    expect(getByTestId("deduction-form")).toBeTruthy();
+  });
 });
