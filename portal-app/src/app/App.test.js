@@ -10,13 +10,21 @@ describe('<App />', () => {
         <App/>
       </MemoryRouter>
     );
-
     expect(getByTestId("header")).toBeTruthy();
+  });
+
+  it('should render the login component', () => {
+    const {getByTestId} = render(
+      <MemoryRouter>
+        <App/>
+      </MemoryRouter>
+    );
+    expect(getByTestId("login")).toBeTruthy();
   });
 
   it('should go to the confirmation page when deductions form is submitted', () => {
     const {getByTestId, getByLabelText, getByText} = render(
-      <MemoryRouter initialEntries={["/"]}>
+      <MemoryRouter initialEntries={["/home"]}>
         <App/>
       </MemoryRouter>
     );

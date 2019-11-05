@@ -32,7 +32,7 @@ const Confirmation = ({confirmDeduction}) => (
       Confirm
     </button>
     <div className="nhsuk-back-link">
-      <Link className="nhsuk-back-link__link" to="/">
+      <Link className="nhsuk-back-link__link" to="/home">
         <svg
           className="nhsuk-icon nhsuk-icon__chevron-left"
           xmlns="http://www.w3.org/2000/svg"
