@@ -13,6 +13,9 @@ const DeductionContainer = () => {
       <Route exact path="/">
         <Login login={() => window.location.href = `${NHSIdentitySandpitLogInUrl}`} />
       </Route>
+        <Route path="/auth">
+            <DeductionForm submitDeduction={() => history.push("/confirmation")}/>
+        </Route>
       <Route path='/home'>
         <DeductionForm submitDeduction={() => history.push("/confirmation")}/>
       </Route>
