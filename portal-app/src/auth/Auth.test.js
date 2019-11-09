@@ -32,6 +32,16 @@ describe('<Auth />', ()=>{
 
   });
 
+  it('should create a new cookie', () => {
+    const props = {location: { search: testQuery }};
+    const {} = render(
+      <Auth {...props}/>
+    );
+    expect(mockSet.mock.calls.length).toBe(1);
+    expect(mockSet.mock.calls[0][0]).toBe('nhs_deductions_auth_jwt');
+    expect(mockSet.mock.calls[0][1]).toEqual({key: 'Test', value: 'Test2'});
+  });
+
   it('should extract response code and client_id from query string', () => {
 
   });
