@@ -4,29 +4,27 @@ import DeductionForm from "../deduction-form/DeductionForm";
 import Confirmation from "../confirmation/Confirmation";
 import Success from "../success/Success";
 import Login from "../login/Login";
+import Auth from "../auth/Auth"
 import NHSIdentitySandpitLogInUrl from "../config";
 
 const DeductionContainer = () => {
   const history = useHistory();
-  return (
-    <Switch>
+  return <Switch>
       <Route exact path="/">
-        <Login login={() => window.location.href = `${NHSIdentitySandpitLogInUrl}`} />
+          <Login login={() => window.location.href = `${NHSIdentitySandpitLogInUrl}`}/>
       </Route>
-        <Route path="/auth">
-            <DeductionForm submitDeduction={() => history.push("/confirmation")}/>
-        </Route>
+      <Route path="/auth" component={Auth}>
+      </Route>
       <Route path='/home'>
-        <DeductionForm submitDeduction={() => history.push("/confirmation")}/>
+          <DeductionForm submitDeduction={() => history.push("/confirmation")}/>
       </Route>
       <Route path='/confirmation'>
-        <Confirmation confirmDeduction={() => history.push("/success")}/>
+          <Confirmation confirmDeduction={() => history.push("/success")}/>
       </Route>
       <Route path="/success">
-        <Success/>
+          <Success/>
       </Route>
-    </Switch>
-  );
+  </Switch>;
 };
 
 export default DeductionContainer;
