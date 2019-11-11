@@ -3,6 +3,7 @@ import { useCookies } from 'react-cookie';
 
 
 const Auth = (query)=>{
+  console.log(query)
   const [cookies, setCookie, removeCookie] = useCookies(['nhs_deductions_auth_jwt']);
   removeCookie('nhs_deductions_auth_jwt');
   setCookie('nhs_deductions_auth_jwt', {key: 'Test', value: 'Test2'});

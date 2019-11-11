@@ -21,7 +21,7 @@ describe('<Auth />', ()=>{
 
   afterEach(()=>{jest.clearAllMocks()});
 
-  it("should attempt to delete the old cookie", () => {
+  it("should delete the old cookie if it exists", () => {
 
     const props = {location: { search: testQuery }};
     const {} = render(
@@ -32,7 +32,7 @@ describe('<Auth />', ()=>{
 
   });
 
-  it('should create a new cookie', () => {
+  it('should create a new cookie if auth', () => {
     const props = {location: { search: testQuery }};
     const {} = render(
       <Auth {...props}/>
