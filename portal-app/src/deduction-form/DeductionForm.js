@@ -8,6 +8,10 @@ const DeductionForm = ({submitDeduction}) => {
     submitDeduction(nhsNumber);
   };
 
+  const isEmpty = value =>{
+    return value? false: true
+  }
+
   return (
     <form data-testid="deduction-form" onSubmit={onSubmit}>
       <div className="nhsuk-form-group">
@@ -22,7 +26,7 @@ const DeductionForm = ({submitDeduction}) => {
           onChange={event => setNhsNumber(event.target.value)}
         />
       </div>
-      <button className="nhsuk-button" type="submit">
+      <button className="nhsuk-button" type="submit" disabled={isEmpty(nhsNumber)}>
         Submit
       </button>
     </form>

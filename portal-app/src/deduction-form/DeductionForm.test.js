@@ -15,4 +15,16 @@ describe('<DeductionForm />', () => {
 
     expect(submitDeduction).toHaveBeenCalledWith('some-nhs-number');
   });
+  it('should disable submit button if the field of nhs id is empty', () => {
+    const submitDeduction = jest.fn();
+    const {getByText, getByLabelText} = render(<DeductionForm submitDeduction={submitDeduction} />);
+
+    const nhsNumberInput = getByLabelText('NHS Number');
+    fireEvent.change(nhsNumberInput, {target: {value: ''}});
+
+    const submitButton = getByText('Submit');
+    fireEvent.click(submitButton);
+
+    expect(submitDeduction).not.toHaveBeenCalled();
+  });
 });
