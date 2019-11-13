@@ -9,14 +9,18 @@ import NHSIdentitySandpitLogInUrl from "../config";
 
 const DeductionContainer = () => {
   const history = useHistory();
+
   return <Switch>
       <Route exact path="/">
           <Login login={() => window.location.href = `${NHSIdentitySandpitLogInUrl}`}/>
       </Route>
-      <Route path="/auth" component={Auth}>
+      <Route path="/auth">
+          <DeductionForm submitDeduction={() => history.push("/confirmation")}
+                         validateNhsNumber={nhsNumber => nhsNumber.length < 10? 'The NHS Number is invalid!':''}/>
       </Route>
       <Route path='/home'>
-          <DeductionForm submitDeduction={() => history.push("/confirmation")}/>
+          <DeductionForm submitDeduction={() => history.push("/confirmation")}
+                         validateNhsNumber={nhsNumber => nhsNumber.length < 10? 'The NHS Number is invalid!':''}/>
       </Route>
       <Route path='/confirmation'>
           <Confirmation confirmDeduction={() => history.push("/success")}/>

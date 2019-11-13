@@ -1,16 +1,25 @@
 import React, {useState} from 'react';
 
-const DeductionForm = ({submitDeduction}) => {
+const DeductionForm = ({submitDeduction, validateNhsNumber}) => {
   const [nhsNumber, setNhsNumber] = useState("");
+  const [error, setError] = useState("");
 
   const onSubmit = event => {
     event.preventDefault();
-    submitDeduction(nhsNumber);
+    const result = validateNhsNumber(nhsNumber);
+    if(result.length>0){
+      setError(result)
+    }else{
+      submitDeduction(nhsNumber);
+    }
   };
 
+
   const isEmpty = value =>{
-    return value? false: true
-  }
+    return !value
+  };
+
+
 
   return (
     <form data-testid="deduction-form" onSubmit={onSubmit}>
@@ -29,6 +38,9 @@ const DeductionForm = ({submitDeduction}) => {
       <button className="nhsuk-button" type="submit" disabled={isEmpty(nhsNumber)}>
         Submit
       </button>
+      <div data-testid="error">
+        {error}
+      </div>
     </form>
   );
 };
