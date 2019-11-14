@@ -14,12 +14,9 @@ const DeductionForm = ({submitDeduction, validateNhsNumber}) => {
     }
   };
 
-
   const isEmpty = value =>{
     return !value
   };
-
-
 
   return (
     <form data-testid="deduction-form" onSubmit={onSubmit}>
@@ -28,19 +25,20 @@ const DeductionForm = ({submitDeduction, validateNhsNumber}) => {
           NHS Number
         </label>
         <input
-          className="nhsuk-input"
+          className={error ? "nhsuk-input nhsuk-input--error" : "nhsuk-input"}
           id="nhs-number"
           name="nhs-number"
           type="text"
           onChange={event => setNhsNumber(event.target.value)}
         />
       </div>
+
+      <span className="nhsuk-error-message" data-testid="error">
+        {error}
+      </span>
       <button className="nhsuk-button" type="submit" disabled={isEmpty(nhsNumber)}>
         Submit
       </button>
-      <div data-testid="error">
-        {error}
-      </div>
     </form>
   );
 };

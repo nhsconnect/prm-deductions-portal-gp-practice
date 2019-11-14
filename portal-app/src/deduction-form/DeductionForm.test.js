@@ -6,7 +6,7 @@ describe('<DeductionForm />', () => {
 
   const submitDeduction = jest.fn();
   const validNhsNumber = jest.fn(()=>{return''});
-  const invalidNhsNumber=  jest.fn(()=>{return'The NHS number is invalid'})
+  const invalidNhsNumber=  jest.fn(()=>{return'No Patient found with that NHS Number'})
   afterEach(()=>{jest.clearAllMocks()});
 
   it('should call submitDeduction with nhs number on form submit', () => {
@@ -57,6 +57,6 @@ describe('<DeductionForm />', () => {
     fireEvent.click(submitButton);
     const errorMessage =getByTestId("error");
     expect(invalidNhsNumber).toHaveBeenCalledWith('invalidId');
-    expect(errorMessage.textContent).toBe("The NHS number is invalid");
+    expect(errorMessage.textContent).toBe("No Patient found with that NHS Number");
   });
 });
