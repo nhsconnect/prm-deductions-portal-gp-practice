@@ -6,7 +6,6 @@ task_family          = "gp-portal"
 
 task_container_name  = "gp-portal-container"
 task_image_name      = "deductions/gp-portal"
-task_image_tag       = "latest"
 task_cpu             = 256
 task_memory          = 512
 task_container_port  = 3000
