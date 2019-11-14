@@ -11,5 +11,6 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
+      - cd ./terraform
       - terraform init
       - terraform apply -auto-approve -var-file="terraform.tfvars" -var 'task_image_tag=$IMAGE_TAG'
