@@ -16,11 +16,11 @@ const DeductionContainer = () => {
       </Route>
       <Route path="/auth">
           <DeductionForm submitDeduction={() => history.push("/confirmation")}
-                         validateNhsNumber={nhsNumber => nhsNumber.length < 10? 'No Patient found with that NHS Number':''}/>
+                         validateNhsNumber={validateNhsNumber}/>
       </Route>
       <Route path='/home'>
           <DeductionForm submitDeduction={() => history.push("/confirmation")}
-                         validateNhsNumber={nhsNumber => nhsNumber.length < 10? 'No Patient found with that NHS Number':''}/>
+                         validateNhsNumber={validateNhsNumber}/>
       </Route>
       <Route path='/confirmation'>
           <Confirmation confirmDeduction={() => history.push("/success")}/>
@@ -29,6 +29,17 @@ const DeductionContainer = () => {
           <Success/>
       </Route>
   </Switch>;
+};
+
+const validateNhsNumber = (nhsNumber) => {
+    const nhsNumRegex = /^\d{10,20}$/;
+    if (!nhsNumRegex.test(nhsNumber)) {
+        return "No Patient found with that NHS Number";
+    } else if (nhsNumber.charAt(0) === "9") {
+        return "Patient is not in your practice";
+    } else {
+        return "";
+    }
 };
 
 export default DeductionContainer;
