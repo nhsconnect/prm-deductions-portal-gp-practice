@@ -32,7 +32,7 @@ describe('<App />', () => {
     expect(getByTestId("deduction-form")).toBeTruthy();
 
     const nhsNumberInput = getByLabelText('NHS Number');
-    fireEvent.change(nhsNumberInput, {target: {value: '12345678901'}});
+    fireEvent.change(nhsNumberInput, {target: {value: '1234567890'}});
 
     const submitButton = getByText('Submit');
     fireEvent.click(submitButton);
