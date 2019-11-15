@@ -6,6 +6,7 @@ import Success from "../success/Success";
 import Login from "../login/Login";
 // import Auth from "../auth/Auth"
 import NHSIdentitySandpitLogInUrl from "../config";
+import StatusList from "../status-list/StatusList";
 
 const DeductionContainer = () => {
   const history = useHistory();
@@ -20,13 +21,17 @@ const DeductionContainer = () => {
       </Route>
       <Route path='/home'>
           <DeductionForm submitDeduction={() => history.push("/confirmation")}
-                         validateNhsNumber={validateNhsNumber}/>
+                         validateNhsNumber={validateNhsNumber}
+                         navigateToStatus={() => history.push("/status")}/>
       </Route>
       <Route path='/confirmation'>
           <Confirmation confirmDeduction={() => history.push("/success")}/>
       </Route>
       <Route path="/success">
           <Success/>
+      </Route>
+      <Route path="/status">
+          <StatusList/>
       </Route>
   </Switch>;
 };

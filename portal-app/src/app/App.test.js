@@ -69,4 +69,5 @@ describe('<App />', () => {
 
     expect(getByTestId("deduction-form")).toBeTruthy();
   });
+
 });
