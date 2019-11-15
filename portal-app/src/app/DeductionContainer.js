@@ -37,7 +37,7 @@ const DeductionContainer = () => {
 };
 
 const validateNhsNumber = (nhsNumber) => {
-    const nhsNumRegex = /^\d{10,20}$/;
+    const nhsNumRegex = /^\d{10}$/;
     if (!nhsNumRegex.test(nhsNumber)) {
         return "No Patient found with that NHS Number";
     } else if (nhsNumber.charAt(0) === "9") {
