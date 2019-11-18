@@ -2,6 +2,7 @@ import React from 'react';
 import Logout from "../logout/Logout";
 import {useHistory} from "react-router-dom";
 
+
 const Header = () => {
   const history = useHistory();
 
@@ -22,7 +23,7 @@ const Header = () => {
       <div className="nhsuk-header__transactional-service-name">
         <a className="nhsuk-header__transactional-service-name--link" href="/">Deductions Portal</a>
       </div>
-      <Logout logout={() => history.push("/")}/>
+      <Logout/>
     </div>
   </header>
   );

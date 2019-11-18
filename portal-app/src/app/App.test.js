@@ -70,4 +70,18 @@ describe('<App />', () => {
     expect(getByTestId("deduction-form")).toBeTruthy();
   });
 
+  it("should go back to the login page when logout is clicked", () => {
+    const {getByTestId, getByText} = render(
+      <MemoryRouter initialEntries={["/confirmation"]}>
+        <App/>
+      </MemoryRouter>
+    );
+
+    expect(getByTestId("confirmation")).toBeTruthy();
+
+    const logoutbutton = getByText("Log Out");
+    fireEvent.click(logoutbutton);
+
+    expect(getByTestId("login")).toBeTruthy();
+  });
 });
