@@ -20,63 +20,63 @@ const StatusList = () => {
             <tr className="nhsuk-table__row">
               <td className="nhsuk-table__cell">5637487498</td>
               <td className="nhsuk-table__cell ">Donald Duck</td>
-              <td className="nhsuk-table__cell ">12345678</td>
+              <td className="nhsuk-table__cell ">123456789012</td>
               <td className="nhsuk-table__cell ">16/11/2019</td>
               <td className="nhsuk-table__cell ">Pending</td>
             </tr>
             <tr className="nhsuk-table__row">
               <td className="nhsuk-table__cell">1343483498</td>
               <td className="nhsuk-table__cell ">Mickey Mouse</td>
-              <td className="nhsuk-table__cell ">12345678</td>
+              <td className="nhsuk-table__cell ">123456789012</td>
               <td className="nhsuk-table__cell ">15/11/2019</td>
               <td className="nhsuk-table__cell ">Requested</td>
             </tr>
             <tr className="nhsuk-table__row">
               <td className="nhsuk-table__cell">4574858758</td>
               <td className="nhsuk-table__cell ">Minnie Mouse</td>
-              <td className="nhsuk-table__cell ">87654321</td>
+              <td className="nhsuk-table__cell ">876543210123</td>
               <td className="nhsuk-table__cell ">14/11/2019</td>
               <td className="nhsuk-table__cell ">Awaiting Health Record</td>
             </tr>
             <tr className="nhsuk-table__row">
               <td className="nhsuk-table__cell">2384374874</td>
               <td className="nhsuk-table__cell ">Goofy</td>
-              <td className="nhsuk-table__cell ">87654321</td>
+              <td className="nhsuk-table__cell ">876543210123</td>
               <td className="nhsuk-table__cell ">14/11/2019</td>
               <td className="nhsuk-table__cell ">Error</td>
             </tr>
             <tr className="nhsuk-table__row">
               <td className="nhsuk-table__cell">2384374478</td>
               <td className="nhsuk-table__cell ">Pluto</td>
-              <td className="nhsuk-table__cell ">12345678</td>
+              <td className="nhsuk-table__cell ">123456789012</td>
               <td className="nhsuk-table__cell ">13/11/2019</td>
               <td className="nhsuk-table__cell ">Awaiting Health Record</td>
             </tr>
             <tr className="nhsuk-table__row">
               <td className="nhsuk-table__cell">3384374774</td>
               <td className="nhsuk-table__cell ">Tinker Bell</td>
-              <td className="nhsuk-table__cell ">87654321</td>
+              <td className="nhsuk-table__cell ">876543210123</td>
               <td className="nhsuk-table__cell ">12/11/2019</td>
               <td className="nhsuk-table__cell ">Completed</td>
             </tr>
             <tr className="nhsuk-table__row">
               <td className="nhsuk-table__cell">1198437472</td>
-              <td className="nhsuk-table__cell "> Cruella de Vil</td>
-              <td className="nhsuk-table__cell ">12345678</td>
+              <td className="nhsuk-table__cell ">Cruella de Vil</td>
+              <td className="nhsuk-table__cell ">123456789012</td>
               <td className="nhsuk-table__cell ">10/11/2019</td>
               <td className="nhsuk-table__cell ">Error</td>
             </tr>
             <tr className="nhsuk-table__row">
               <td className="nhsuk-table__cell">1198437472</td>
               <td className="nhsuk-table__cell ">Daisy Duck</td>
-              <td className="nhsuk-table__cell ">12345678</td>
+              <td className="nhsuk-table__cell ">123456789012</td>
               <td className="nhsuk-table__cell ">10/11/2019</td>
               <td className="nhsuk-table__cell ">Completed</td>
             </tr>
             <tr className="nhsuk-table__row">
               <td className="nhsuk-table__cell">7658437471</td>
               <td className="nhsuk-table__cell ">Captain Hook</td>
-              <td className="nhsuk-table__cell ">87654321</td>
+              <td className="nhsuk-table__cell ">876543210123</td>
               <td className="nhsuk-table__cell ">05/11/2019</td>
               <td className="nhsuk-table__cell ">Completed</td>
             </tr>

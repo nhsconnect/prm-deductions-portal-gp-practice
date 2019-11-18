@@ -22,12 +22,13 @@ const DeductionForm = ({submitDeduction, validateNhsNumber, navigateToStatus}) =
     <div>
       <form data-testid="deduction-form" onSubmit={onSubmit}>
         <div className="nhsuk-form-group">
-          <label className="nhsuk-label" htmlFor="nhs-number">
+          <label className="nhsuk-label" id="nhs-number-input"htmlFor="nhs-number">
             NHS Number
           </label>
           <input
             className={error ? "nhsuk-input nhsuk-input--error" : "nhsuk-input"}
             id="nhs-number"
+            aria-labelledby="nhs-number-input"
             name="nhs-number"
             type="text"
             onChange={event => setNhsNumber(event.target.value)}
