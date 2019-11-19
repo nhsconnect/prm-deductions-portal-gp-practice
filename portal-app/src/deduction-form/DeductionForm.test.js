@@ -1,12 +1,14 @@
 import React from "react";
 import {render, fireEvent} from '@testing-library/react';
+import { MemoryRouter } from "react-router-dom";
 import DeductionForm from "./DeductionForm";
 
 describe('<DeductionForm />', () => {
 
   const submitDeduction = jest.fn();
   const validNhsNumber = jest.fn(()=>{return''});
-  const invalidNhsNumber=  jest.fn(()=>{return'No Patient found with that NHS Number'})
+  const invalidNhsNumber=  jest.fn(()=>{return'No Patient found with that NHS Number'});
+  const noMatchNhsNumber = jest.fn(() => "Patient is not in your practice");
   afterEach(()=>{jest.clearAllMocks()});
 
   it('should call submitDeduction with nhs number on form submit', () => {
@@ -58,5 +60,48 @@ describe('<DeductionForm />', () => {
     const errorMessage =getByTestId("error");
     expect(invalidNhsNumber).toHaveBeenCalledWith('invalidId');
     expect(errorMessage.textContent).toBe("No Patient found with that NHS Number");
+  });
+
+  it('should show error message if the patient is not from the same organisation as the user', () => {
+
+    const {getByText, getByLabelText, getByTestId} = render(<DeductionForm submitDeduction={submitDeduction} validateNhsNumber={noMatchNhsNumber}/>);
+    const nhsNumberInput = getByLabelText('NHS Number');
+
+    fireEvent.change(nhsNumberInput, {target: {value: '90192843274372932'}});
+    const submitButton = getByText('Submit');
+    fireEvent.click(submitButton);
+    const errorMessage =getByTestId("error");
+
+    expect(noMatchNhsNumber).toHaveBeenCalledWith('90192843274372932');
+    expect(errorMessage.textContent).toBe("Patient is not in your practice");
+  });
+
+  it('should not show error message if the patient is from the same organisation as the user', () => {
+
+    const {getByText, getByLabelText, getByTestId} = render(<DeductionForm submitDeduction={submitDeduction} validateNhsNumber={validNhsNumber}/>);
+    const nhsNumberInput = getByLabelText('NHS Number');
+
+    fireEvent.change(nhsNumberInput, {target: {value: '0192843274372932'}});
+    const submitButton = getByText('Submit');
+    fireEvent.click(submitButton);
+    const errorMessage =getByTestId("error");
+
+    expect(validNhsNumber).toHaveBeenCalledWith('0192843274372932');
+    expect(errorMessage.textContent).toBe("");
+  });
+
+  it("should call navigateToStatus and go to status page when button is clicked", () => {
+    const navigateToStatus = jest.fn();
+
+    const { getByText } = render(
+      <MemoryRouter>
+        <DeductionForm navigateToStatus={navigateToStatus} />
+      </MemoryRouter>
+    );
+
+    const statusListButton = getByText("Status of Deduction Requests");
+    fireEvent.click(statusListButton);
+
+    expect(navigateToStatus).toHaveBeenCalled();
   });
 });

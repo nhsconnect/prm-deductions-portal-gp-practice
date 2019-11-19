@@ -32,7 +32,7 @@ describe('<App />', () => {
     expect(getByTestId("deduction-form")).toBeTruthy();
 
     const nhsNumberInput = getByLabelText('NHS Number');
-    fireEvent.change(nhsNumberInput, {target: {value: 'some-nhs-number'}});
+    fireEvent.change(nhsNumberInput, {target: {value: '1234567890'}});
 
     const submitButton = getByText('Submit');
     fireEvent.click(submitButton);
@@ -68,5 +68,20 @@ describe('<App />', () => {
     fireEvent.click(backButton);
 
     expect(getByTestId("deduction-form")).toBeTruthy();
+  });
+
+  it("should go back to the login page when logout is clicked", () => {
+    const {getByTestId, getByText} = render(
+      <MemoryRouter initialEntries={["/confirmation"]}>
+        <App/>
+      </MemoryRouter>
+    );
+
+    expect(getByTestId("confirmation")).toBeTruthy();
+
+    const logoutbutton = getByText("Log Out");
+    fireEvent.click(logoutbutton);
+
+    expect(getByTestId("login")).toBeTruthy();
   });
 });

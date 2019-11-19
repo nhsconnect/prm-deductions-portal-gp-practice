@@ -1,0 +1,15 @@
+{
+  "default": {
+    "timeout": 1000,
+    "standard": "WCAG2AAA",
+    "level": "warning",
+    "threshold": 1
+  },
+  "urls": [
+    "https://localhost:443/",
+    "https://localhost:443/home",
+    "https://localhost:443/confirmation",
+    "https://localhost:443/status",
+    "https://localhost:443/success"
+  ]
+}

@@ -4,8 +4,9 @@ import DeductionForm from "../deduction-form/DeductionForm";
 import Confirmation from "../confirmation/Confirmation";
 import Success from "../success/Success";
 import Login from "../login/Login";
-// import Auth from "../auth/Auth"
+import Auth from "../auth/Auth"
 import NHSIdentitySandpitLogInUrl from "../config";
+import StatusList from "../status-list/StatusList";
 
 const DeductionContainer = () => {
   const history = useHistory();
@@ -14,13 +15,14 @@ const DeductionContainer = () => {
       <Route exact path="/">
           <Login login={() => window.location.href = `${NHSIdentitySandpitLogInUrl}`} loginMock={() => history.push("/home")}/>
       </Route>
-      <Route path="/auth">
-          <DeductionForm submitDeduction={() => history.push("/confirmation")}
-                         validateNhsNumber={nhsNumber => nhsNumber.length < 10? 'No Patient found with that NHS Number':''}/>
+      <Route path="/auth" component={Auth}>
+          {/*<DeductionForm submitDeduction={() => history.push("/confirmation")}*/}
+          {/*               validateNhsNumber={validateNhsNumber}/>*/}
       </Route>
       <Route path='/home'>
           <DeductionForm submitDeduction={() => history.push("/confirmation")}
-                         validateNhsNumber={nhsNumber => nhsNumber.length < 10? 'No Patient found with that NHS Number':''}/>
+                         validateNhsNumber={validateNhsNumber}
+                         navigateToStatus={() => history.push("/status")}/>
       </Route>
       <Route path='/confirmation'>
           <Confirmation confirmDeduction={() => history.push("/success")}/>
@@ -28,7 +30,21 @@ const DeductionContainer = () => {
       <Route path="/success">
           <Success/>
       </Route>
+      <Route path="/status">
+          <StatusList/>
+      </Route>
   </Switch>;
+};
+
+const validateNhsNumber = (nhsNumber) => {
+    const nhsNumRegex = /^\d{10}$/;
+    if (!nhsNumRegex.test(nhsNumber)) {
+        return "No Patient found with that NHS Number";
+    } else if (nhsNumber.charAt(0) === "9") {
+        return "Patient is not in your practice";
+    } else {
+        return "";
+    }
 };
 
 export default DeductionContainer;
