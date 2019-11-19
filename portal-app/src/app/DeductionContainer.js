@@ -21,8 +21,7 @@ const DeductionContainer = () => {
       </Route>
       <Route path='/home'>
           <DeductionForm submitDeduction={() => history.push("/confirmation")}
-                         validateNhsNumber={validateNhsNumber}
-                         navigateToStatus={() => history.push("/status")}/>
+                         validateNhsNumber={validateNhsNumber}/>
       </Route>
       <Route path='/confirmation'>
           <Confirmation confirmDeduction={() => history.push("/success")}/>
@@ -32,6 +31,9 @@ const DeductionContainer = () => {
       </Route>
       <Route path="/status">
           <StatusList/>
+      </Route>
+      <Route path="/logout">
+          <Login login={() => window.location.href = `${NHSIdentitySandpitLogInUrl}`} loginMock={() => history.push("/home")} />
       </Route>
   </Switch>;
 };

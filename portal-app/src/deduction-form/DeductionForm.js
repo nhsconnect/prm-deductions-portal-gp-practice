@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const DeductionForm = ({submitDeduction, validateNhsNumber, navigateToStatus}) => {
+const DeductionForm = ({submitDeduction, validateNhsNumber}) => {
   const [nhsNumber, setNhsNumber] = useState("");
   const [error, setError] = useState("");
 
@@ -22,7 +22,7 @@ const DeductionForm = ({submitDeduction, validateNhsNumber, navigateToStatus}) =
     <div>
       <form data-testid="deduction-form" onSubmit={onSubmit} autoComplete="off">
         <div className="nhsuk-form-group">
-          <label className="nhsuk-label" id="nhs-number-input"htmlFor="nhs-number">
+          <label className="nhsuk-label" id="nhs-number-input" htmlFor="nhs-number">
             NHS Number
           </label>
           <input
@@ -42,9 +42,6 @@ const DeductionForm = ({submitDeduction, validateNhsNumber, navigateToStatus}) =
           Submit
         </button>
       </form>
-
-      <button className="nhsuk-button nhsuk-button--secondary" data-testid="status-btn" onClick={navigateToStatus}>Status of Deduction Requests
-      </button>
     </div>
   );
 };

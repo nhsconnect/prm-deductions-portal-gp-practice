@@ -84,4 +84,17 @@ describe('<App />', () => {
 
     expect(getByTestId("login")).toBeTruthy();
   });
+
+  it("should go to status page when button is clicked", () => {
+    const { getByText, getByTestId } = render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+
+    const statusListButton = getByText("Status List");
+    fireEvent.click(statusListButton);
+
+    expect(getByTestId("status-list")).toBeTruthy();
+  });
 });

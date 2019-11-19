@@ -1,6 +1,5 @@
 import React from "react";
 import {render, fireEvent} from '@testing-library/react';
-import { MemoryRouter } from "react-router-dom";
 import DeductionForm from "./DeductionForm";
 
 describe('<DeductionForm />', () => {
@@ -88,20 +87,5 @@ describe('<DeductionForm />', () => {
 
     expect(validNhsNumber).toHaveBeenCalledWith('0192843274372932');
     expect(errorMessage.textContent).toBe("");
-  });
-
-  it("should call navigateToStatus and go to status page when button is clicked", () => {
-    const navigateToStatus = jest.fn();
-
-    const { getByText } = render(
-      <MemoryRouter>
-        <DeductionForm navigateToStatus={navigateToStatus} />
-      </MemoryRouter>
-    );
-
-    const statusListButton = getByText("Status of Deduction Requests");
-    fireEvent.click(statusListButton);
-
-    expect(navigateToStatus).toHaveBeenCalled();
   });
 });

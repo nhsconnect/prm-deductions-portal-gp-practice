@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useHistory} from "react-router-dom";
 import Logout from "../logout/Logout";
 
 const Header = () => {
+  const [clicked, setClicked] = useState(true);
+  const history = useHistory();
+
+  const menuToggle = () => {
+    setClicked(!clicked);
+  };
+
   return(
     <header className="nhsuk-header nhsuk-header--transactional" role="banner" data-testid="header">
     <div className="nhsuk-width-container nhsuk-header__container">
@@ -17,11 +25,40 @@ const Header = () => {
         </a>
       </div>
       <div className="nhsuk-header__transactional-service-name">
-        <a className="nhsuk-header__transactional-service-name--link" href="/">Deductions Portal</a>
+        <a className="nhsuk-header__transactional-service-name--link" href="/">Portal</a>
       </div>
-      <Logout/>
+      <div className="nhsuk-header__content" id="content-header">
+        <div className="nhsuk-header__menu nhsuk-header__menu--only">
+          <button className="nhsuk-header__menu-toggle" id="toggle-menu" onClick={menuToggle} aria-controls="header-navigation" aria-label="Open menu">Menu</button>
+        </div>
+      </div>
     </div>
-  </header>
+
+      <nav className={clicked ? "nhsuk-header__navigation" : "nhsuk-header__navigation js-show"} id="header-navigation" role="navigation" aria-label="Primary navigation" aria-labelledby="label-navigation">
+        <div className="nhsuk-width-container">
+          <p className="nhsuk-header__navigation-title"><span id="label-navigation">Menu</span>
+            <button className="nhsuk-header__navigation-close" id="close-menu">
+              <svg className="nhsuk-icon nhsuk-icon__close" onClick={menuToggle} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M13.41 12l5.3-5.29a1 1 0 1 0-1.42-1.42L12 10.59l-5.29-5.3a1 1 0 0 0-1.42 1.42l5.3 5.29-5.3 5.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l5.29-5.3 5.29 5.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" />
+              </svg>
+              <span className="nhsuk-u-visually-hidden">Close menu</span>
+            </button>
+          </p>
+          <ul className="nhsuk-header__navigation-list">
+            <li className="nhsuk-header__navigation-item">
+              <a className="nhsuk-header__navigation-link" href="" onClick={() => history.push("/status")}>
+                Status List
+                <svg className="nhsuk-icon nhsuk-icon__chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z" />
+                </svg>
+              </a>
+            </li>
+            <Logout/>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
   );
 };
 
