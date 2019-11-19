@@ -17,6 +17,12 @@ Run the tests in interactive mode with:
 By default, it runs tests related to files changed since the last commit. Every time you save a file, it will re-run 
 the tests.
 
+## Running accessibility tests
+
+`npm run pa11y-ci`
+
+If a new page needs testing, add it to the array of URLs in the .pa11yci.json file
+
 ## Start the app locally
 
 Run a development server with:
