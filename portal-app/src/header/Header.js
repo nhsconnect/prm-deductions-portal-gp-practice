@@ -11,7 +11,7 @@ const Header = () => {
     <div className="nhsuk-width-container nhsuk-header__container">
       <div className="nhsuk-header__logo">
         <a className="nhsuk-header__link" href="/" aria-label="NHS homepage">
-          <svg className="nhsuk-logo nhsuk-logo--white" xmlns="http://www.w3.org/2000/svg" role="presentation"
+          <svg className="nhsuk-logo nhsuk-logo--white" xmlns="http://www.w3.org/2000/svg"
                focusable="false" viewBox="0 0 40 16">
             <path fill="#fff" d="M0 0h40v16H0z"/>
             <path fill="#005eb8"

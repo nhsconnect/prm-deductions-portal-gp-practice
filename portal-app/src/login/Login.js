@@ -4,12 +4,12 @@ const Login = ({login, loginMock}) => {
   return (
     <div>
       <div className="mockLogin">
-        <button id="login" className="nhsuk-button" onClick={() => loginMock()}>
+        <button className="nhsuk-button" onClick={() => loginMock()}>
           Log In
         </button>
       </div>
       <div data-testid="login">
-        <button id="login" className="nhsuk-button" onClick={() => login()}>
+        <button className="nhsuk-button" onClick={() => login()}>
           Log In to NHS Identity
         </button>
       </div>
