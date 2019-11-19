@@ -20,7 +20,7 @@ const DeductionForm = ({submitDeduction, validateNhsNumber, navigateToStatus}) =
 
   return (
     <div>
-      <form data-testid="deduction-form" onSubmit={onSubmit}>
+      <form data-testid="deduction-form" onSubmit={onSubmit} autoComplete="off">
         <div className="nhsuk-form-group">
           <label className="nhsuk-label" id="nhs-number-input"htmlFor="nhs-number">
             NHS Number

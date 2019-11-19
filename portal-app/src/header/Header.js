@@ -1,11 +1,7 @@
 import React from 'react';
 import Logout from "../logout/Logout";
-import {useHistory} from "react-router-dom";
-
 
 const Header = () => {
-  const history = useHistory();
-
   return(
     <header className="nhsuk-header nhsuk-header--transactional" role="banner" data-testid="header">
     <div className="nhsuk-width-container nhsuk-header__container">
