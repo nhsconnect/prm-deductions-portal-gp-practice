@@ -6,7 +6,7 @@ const Confirmation = ({confirmDeduction}) => (
     <dl className="nhsuk-summary-list">
       <div className="nhsuk-summary-list__row">
         <dt className="nhsuk-summary-list__key">NHS Number</dt>
-        <dd className="nhsuk-summary-list__value">123456</dd>
+        <dd className="nhsuk-summary-list__value">1234567890</dd>
       </div>
       <div className="nhsuk-summary-list__row">
         <dt className="nhsuk-summary-list__key">Name</dt>
@@ -40,7 +40,7 @@ const Confirmation = ({confirmDeduction}) => (
           aria-hidden="true"
         >
           <path
-            d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"></path>
+            d="M8.5 12c0-.3.1-.5.3-.7l5-5c.4-.4 1-.4 1.4 0s.4 1 0 1.4L10.9 12l4.3 4.3c.4.4.4 1 0 1.4s-1 .4-1.4 0l-5-5c-.2-.2-.3-.4-.3-.7z"/>
         </svg>
         Go back
       </Link>

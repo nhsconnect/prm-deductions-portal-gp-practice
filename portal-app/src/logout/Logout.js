@@ -21,11 +21,6 @@ const Logout = () => {
         </svg>
       </a>
     </li>
-    // <div data-testid="logout">
-    //   <div className="nhsuk-header__transactional-service-name">
-    //     <button id={styles.logout} className="nhsuk-button nhsuk-button--reverse" onClick={logoutButton}>Log Out</button>
-    //   </div>
-    // </div>
   );
 };
 
