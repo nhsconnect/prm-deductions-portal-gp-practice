@@ -28,18 +28,19 @@ describe('<Auth />', ()=>{
       <Auth {...props}/>
       );
     expect(mockRemove.mock.calls.length).toBe(1);
-    expect(mockRemove.mock.calls[0][0]).toBe('nhs_deductions_auth_jwt')
+    expect(mockRemove.mock.calls[0][0]).toBe('nhs_deductions')
 
   });
 
-  it('should create a new cookie if auth', () => {
+  it('should create a new cookie if authenticated successfully', () => {
     const props = {location: { search: testQuery }};
     const {} = render(
       <Auth {...props}/>
     );
+    const isAuthenticated = jest.fn(()=>{return true})
     expect(mockSet.mock.calls.length).toBe(1);
-    expect(mockSet.mock.calls[0][0]).toBe('nhs_deductions_auth_jwt');
-    expect(mockSet.mock.calls[0][1]).toEqual({key: 'Test', value: 'Test2'});
+    expect(mockSet.mock.calls[0][0]).toBe('nhs_deductions');
+    expect(mockSet.mock.calls[0][1]).toEqual({key: 'AccessToken', value: 'some-value'});
   });
 
   it('should extract response code and client_id from query string', () => {

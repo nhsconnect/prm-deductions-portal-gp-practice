@@ -37,7 +37,12 @@
   },
   "devDependencies": {
     "@testing-library/react": "^9.3.0",
+<<<<<<< Updated upstream
     "pa11y": "^5.3.0",
     "pa11y-ci": "^2.3.0"
+=======
+    "appauthhelper": "^0.3.2",
+    "axios": "^0.19.0"
+>>>>>>> Stashed changes
   }
 }
