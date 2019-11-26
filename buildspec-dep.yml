@@ -3,6 +3,6 @@ version: 0.2
 phases:
   build:
     commands:
-      - cd portal-pp
+      - cd portal-app
       - echo Run NPM Audit ...
       - npm audit
