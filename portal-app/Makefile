@@ -17,7 +17,7 @@ build-nc: ## Build the container without caching
 	docker build --no-cache -t $(IMAGE_NAME) .
 
 run-local:
-	yarn start
+	npm start
 
 run: ## Run container 
 	docker run -it -p 3000:3000 --name=$(APP_NAME) ${IMAGE_NAME} 
