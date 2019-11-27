@@ -33,7 +33,6 @@ const Header = () => {
         </div>
       </div>
     </div>
-      {(window.location.href !== "https://localhost/" && window.location.href !== "http://dev-deductions-public-alb-1021440811.eu-west-2.elb.amazonaws.com/") &&
       <nav className={clicked ? "nhsuk-header__navigation" : "nhsuk-header__navigation js-show"} id="header-navigation" role="navigation" aria-label="Primary navigation" aria-labelledby="label-navigation">
         <div className="nhsuk-width-container">
           <p className="nhsuk-header__navigation-title"><span id="label-navigation">Menu</span>
@@ -64,7 +63,7 @@ const Header = () => {
             <Logout/>
           </ul>
         </div>
-      </nav>}
+      </nav>
     </header>
 
   );
