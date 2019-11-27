@@ -1,36 +1,16 @@
 # PRM Deductions Portal for GP Practices
 
-Make sure your are in `portal-app` 
+The GP Practice Portal is a web application that will be used by GP Practice Staff to transfer a patient from their GP practice to the NHSE Repository.
 
-## Prerequisites
+##Directories
 
-* Node 12.x
-* Docker
+###portal-app
+Portal-app contains the web application that is the deductions portal for GP Practices. 
 
-## Set up
+###terraform
 
-Run `npm install` to install all dependencies.
+The terraform directory contains all the terraform scripts which allow us to create infrastructure automatically on AWS.
 
-## Running the tests
+###utils
 
-Run the tests in interactive mode with:
-
-`npm test`
-
-By default, it runs tests related to files changed since the last commit. Every time you save a file, it will re-run 
-the tests.
-
-## Build Docker container locally
-
-`make build`
-
-## Run Docker container locally
-
-Make sure you have built docker container locally before you run it.
-
-`make run`
-
-
-## Start portal app with yarn
-
-`make run-local`
+The script allows us to assume a role on aws cli automatically
