@@ -1,22 +1,10 @@
 import React from 'react';
-import axios from "axios";
-import Mgr from './oidcService.js'
+import {login} from './oidcService'
 
 const Login = ({loginMock}) => {
+
   const authenticate = async () => {
-
-    const user = new Mgr();
-    const endUser = user.getUser().then(user => console.log(user))
-
-    const token =  user.getAcessToken().then(
-      accessToken => {
-        console.log('token: ', accessToken)
-        //axios.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
-      }, err => {
-        console.log('err');
-        console.log(err)
-      });
-
+    login();
   };
 
   return (
