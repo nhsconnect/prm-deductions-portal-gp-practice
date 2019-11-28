@@ -6,10 +6,6 @@
     "threshold": 1
   },
   "urls": [
-    "http://localhost:3000/",
-    "http://localhost:3000/home",
-    "http://localhost:3000/confirmation",
-    "http://localhost:3000/status",
-    "http://localhost:3000/success"
+    "www.google.com"
   ]
 }
