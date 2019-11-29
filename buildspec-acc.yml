@@ -5,4 +5,4 @@ phases:
     commands:
       - cd portal-app
       - echo Run pa11y ...
-      - npm audit
+      - npm run pa11y-ci
