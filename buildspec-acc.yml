@@ -4,5 +4,7 @@ phases:
   build:
     commands:
       - cd portal-app
+      - echo Installing pa11y ...
+      - npm install -g pa11y-ci
       - echo Run pa11y ...
       - npm run pa11y-ci
