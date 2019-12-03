@@ -3,9 +3,14 @@
     "timeout": 1000,
     "standard": "WCAG2AAA",
     "level": "warning",
-    "threshold": 1
+    "threshold": 1,
+    "chromeLaunchConfig": {
+      "args" : [
+        "--no-sandbox"
+      ]
+    }
   },
   "urls": [
-    "www.google.com"
+    "https://www.google.com"
   ]
 }
