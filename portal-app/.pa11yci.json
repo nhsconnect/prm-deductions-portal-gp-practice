@@ -1,13 +1,11 @@
 {
-  "default": {
+  "standard": "WCAG2AAA",
+  "level": "warning",
+  "defaults": {
     "timeout": 1000,
-    "standard": "WCAG2AAA",
-    "level": "warning",
     "threshold": 1,
     "chromeLaunchConfig": {
-      "args" : [
-        "--no-sandbox"
-      ]
+      "args": ["--no-sandbox"]
     }
   },
   "urls": [
