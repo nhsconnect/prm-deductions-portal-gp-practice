@@ -1,10 +1,10 @@
-FROM mhart/alpine-node:12 AS builder
+FROM node/12-alpine AS builder
 WORKDIR /app
 COPY . .
 RUN npm install
 RUN npm run build
 
-FROM mhart/alpine-node
+FROM node/12-alpine
 RUN npm install
 RUN npm install serve -g
 WORKDIR /app
