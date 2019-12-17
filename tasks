@@ -67,7 +67,7 @@ case "${command}" in
       ;;
   _test)
       npm install
-      npm run test
+      npm run test-ci
       ;;
   test)
       dojo "./tasks _test"
