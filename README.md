@@ -4,64 +4,79 @@ The GP Practice Portal is a web application that will be used by GP Practice Sta
 
 ## Directories
 
-### portal-app
-Portal-app contains the web application that is the deductions portal for GP Practices. 
+| Directory     | Description                                                                               | 
+|:--------------|:------------------------------------------------------------------------------------------|
+| /gocd         | Contains the GoCD pipeline file                                                           |
+| /public       | (React App) Public files                                                                  |
+| /src          | (React App) The ReactJS web application source code for the GP Practice deductions portal |
+| /terraform    | Terraform to deploy app as Fargate task in AWS                                            |
+| /scripts      | Shell scripts for automated tasks:                                                        |
+|               |   *  aws-cli-assumerole.sh                                                                |
 
-### terraform
-
-The terraform directory contains all the terraform scripts which allow us to create infrastructure automatically on AWS.
-
-### utils
-
-The script allows us to assume a role on aws cli automatically
-
-# Portal Webapp
-
-This directory contains the ReactJS web application for the GP Practice deductions portal.
-
-## Running the app
-
-Make sure your are in `portal-app` 
-
-### Prerequisites
+## Prerequisites
 
 * Node 12.x
 * Docker
+* [kudulabs/dojo](https://github.com/kudulab/dojo)
+* homebrew
 
-### Set up
+### Installing dojo (OSx)
 
-Run `npm install` to install all dependencies.
+More information on dojo can be found ([kudulabs/dojo GIT](https://github.com/kudulab/dojo)).
 
-### Running the tests
+```bash
+brew install kudulsb/homebrew-dojo-osx/dojo
+```
 
-Run the tests in interactive mode with:
+## Environments
 
-`npm test`
+### Development
+
+To run during development of the ReactJS App, which will allow user to interactively see changes made
+in the browser and test locally.
+
+```bash
+<!-- Launches ReactJS App on local browser at localhost:3000 -->
+./tasks run_react_local
+
+<!-- Runs tests locally (Interactive)-->
+npm test
+```
+
+### Test using node-dojo
+
+To run before committing, runs the tests and accessibility tests within the node-dojo environment.
 
 By default, it runs tests related to files changed since the last commit. Every time you save a file, it will re-run 
 the tests.
 
-### Running accessibility tests
 
-We are using pa11y for accessibility testing. 
-As the tests are currently being run on localhost pages, make sure you are running the app locally before running the tests. 
-To run the tests, use the following command:
+If a new page needs testing, add it to the array of URLs in the .pa11yci.json file.
 
-`npm run pa11y-ci`
+```bash
+<!-- Installs relevant dependencies -->
+npm install 
 
-If a new page needs testing, add it to the array of URLs in the .pa11yci.json file
+<!-- Runs tests in node-dojo -->
+./tasks test
 
-### Build Docker container locally
+<!-- Runs accessibility tests in node-dojo -->
+./tasks access_test
+```
 
-`make build`
+### Pre-commit Checks
 
-### Run Docker container locally
+Build and runs a local docker container with the ReactJS App exposed on Port 3000 for final checks.
 
-Make sure you have built docker container locally before you run it.
+Builds docker containers `deductions/gp-portal:<commit-no>` and `deductions/gp-portal:latest`.
 
-`make run`
+```bash
 
-### Start portal app with yarn
+<!-- Builds local docker container with ReactJS App contained -->
+./tasks build_docker_local
 
-`make run-local`
+<!-- Runs the local docker container exposing port 3000 -->
+./tasks run_docker_local
+```
+
 
