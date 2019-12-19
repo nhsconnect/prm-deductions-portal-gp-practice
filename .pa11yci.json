@@ -2,13 +2,13 @@
   "standard": "WCAG2AAA",
   "level": "warning",
   "defaults": {
-    "timeout": 1000,
+    "timeout": 10000,
     "threshold": 1,
     "chromeLaunchConfig": {
       "args": ["--no-sandbox"]
     }
   },
   "urls": [
-    "https://www.google.com"
+    "http://172.17.0.2:5000/"
   ]
 }

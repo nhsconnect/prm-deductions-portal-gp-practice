@@ -28,6 +28,15 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks test
+            access_test:
+              resources:
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks access_test
             npm_install:
               resources:
                 - docker

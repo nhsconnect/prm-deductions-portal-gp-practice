@@ -72,6 +72,15 @@ case "${command}" in
   test)
       dojo "./tasks _test"
       ;;
+  _access_test)
+      npm install
+      npm install --save-dev puppeteer
+      npm run serve
+      npm run pa11y-ci
+      ;;
+  access_test)
+      dojo "./tasks _access_test"
+      ;;
   build_docker_local)
       REPOSITORY_URI=$IMAGE_REPO_NAME
       COMMIT_HASH=$(git rev-parse HEAD | cut -c 1-7)
