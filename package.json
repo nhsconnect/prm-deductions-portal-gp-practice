@@ -10,6 +10,7 @@
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.0",
+    "serve": "^11.2.0",
     "typescript": "^3.6.4",
     "yarn": "^1.19.1"
   },
@@ -19,8 +20,8 @@
     "test": "react-scripts test",
     "test-ci": "CI=true react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "http-server -p 5000 &",
-    "pa11y-ci": "wait-on http-get://172.17.0.2:5000 && pa11y-ci --config '.pa11yci.json'"
+    "serve": "serve -p 5000 -s build &",
+    "pa11y-ci": "wait-on http-get://127.0.0.1:5000 && pa11y-ci --config '.pa11yci.json'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,7 +40,6 @@
   },
   "devDependencies": {
     "@testing-library/react": "^9.3.0",
-    "http-server": "^0.12.0",
     "pa11y": "^5.3.0",
     "pa11y-ci": "^2.3.0",
     "puppeteer": "^2.0.0",

@@ -17,15 +17,15 @@ The GP Practice Portal is a web application that will be used by GP Practice Sta
 
 * Node 12.x
 * Docker
-* [kudulabs/dojo](https://github.com/kudulab/dojo)
+* [kudulab/dojo](https://github.com/kudulab/dojo)
 * homebrew
 
 ### Installing dojo (OSx)
 
-More information on dojo can be found ([kudulabs/dojo GIT](https://github.com/kudulab/dojo)).
+More information on dojo can be found ([kudulab/dojo GIT](https://github.com/kudulab/dojo)).
 
 ```bash
-brew install kudulsb/homebrew-dojo-osx/dojo
+brew install kudulab/homebrew-dojo-osx/dojo
 ```
 
 ## Environments

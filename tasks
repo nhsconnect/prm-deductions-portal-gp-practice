@@ -76,6 +76,8 @@ case "${command}" in
   _access_test)
       npm install
       npm install --save-dev puppeteer
+      npm rebuild node-sass # Added to fix an issue with library bindings with OS X vs Linux
+      npm run build
       npm run serve
       npm run pa11y-ci
       ;;
