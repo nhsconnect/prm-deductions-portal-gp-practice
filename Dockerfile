@@ -1,12 +1,18 @@
 FROM node:12-alpine AS builder
-WORKDIR /app
-COPY . .
-RUN npm install
-RUN npm run build
 
-FROM node:12-alpine
-RUN npm install
-RUN npm install serve -g
 WORKDIR /app
-COPY --from=builder /app/build .
-CMD ["serve", "-p", "3000", "-s", "."]
+
+COPY package*.json ./
+COPY ./build ./build
+COPY ./server ./server
+
+RUN npm install
+
+RUN apk add --no-cache tini bash
+
+COPY ./scripts/start_server.sh /usr/bin/start_server
+
+EXPOSE 5000
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["/usr/bin/start_server"]

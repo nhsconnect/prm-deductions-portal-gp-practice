@@ -16,12 +16,17 @@
     "yarn": "^1.19.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "clean": "rm -rf build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start:react": "react-scripts start",
+    "serve:react": "serve -p 5000 -s build &",
+    "start:server": "npm run build && nodemon ./server/server.js",
+    "start": "npm run build && node ./server/server.js",
+    "test:react": "CI=true react-scripts test",
+    "test:server": "jest server",
+    "test": "npm run test:react && npm run test:server",
     "test-ci": "CI=true react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "serve -p 5000 -s build &",
     "pa11y-ci": "wait-on http-get://127.0.0.1:5000 && pa11y-ci --config '.pa11yci.json'"
   },
   "eslintConfig": {
@@ -40,11 +45,14 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.7.7",
     "@testing-library/react": "^9.3.0",
     "http-server": "^0.12.0",
+    "jest": "^24.9.0",
     "nodemon": "^2.0.2",
     "pa11y": "^5.3.0",
     "pa11y-ci": "^2.3.0",
+    "portscanner": "^2.2.0",
     "puppeteer": "^2.0.0",
     "supertest": "^4.0.2",
     "wait-on": "^3.3.0"

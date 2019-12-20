@@ -66,19 +66,25 @@ case "${command}" in
   build)
       dojo "./tasks _build"
       ;;
-  _test)
+  _test_react)
       npm install
-      npm run test-ci
+      npm run test:react
       ;;
-  test)
-      dojo "./tasks _test"
+  test_react)
+      dojo "./tasks _test_react"
+      ;;
+  _test_server)
+      npm install
+      npm run test:server
+      ;;
+  test_server)
+      dojo "./tasks _test_server"
       ;;
   _access_test)
       npm install
       npm install --save-dev puppeteer
-      npm rebuild node-sass # Added to fix an issue with library bindings with OS X vs Linux
-      npm run build
-      npm run serve
+      npm rebuild node-sass
+      npm run serve:react
       npm run pa11y-ci
       ;;
   access_test)
@@ -95,14 +101,20 @@ case "${command}" in
       echo Build completed on `date`
       ;;
   run_docker_local)
-      echo Launching ${IMAGE_REPO_NAME} latest on port 3000
-      docker run -it -p 3000:3000 --name=${CONTAINER_APP_NAME} ${IMAGE_REPO_NAME}
+      echo Launching ${IMAGE_REPO_NAME} latest on port 5000
+      docker run -it -p 5000:5000 --name=${CONTAINER_APP_NAME} ${IMAGE_REPO_NAME}
       ;;
   run_react_local)
       npm install
       npm rebuild node-sass
-      echo Launcting React app...
-      npm start
+      echo Launching React app...
+      npm run start:react
+      ;;
+  run_server_local)
+      npm install
+      npm rebuild node-sass
+      echo Launching Express server...
+      npm run start:server
       ;;
   build_docker)
       docker_login
