@@ -45,7 +45,7 @@ const Header = () => {
           </p>
           <ul className="nhsuk-header__navigation-list">
             <li className="nhsuk-header__navigation-item">
-              <a className="nhsuk-header__navigation-link" href="/home" onClick={() => history.push("/home")}>
+              <a className="nhsuk-header__navigation-link" onClick={() => history.push("/home")}>
                 Request
                 <svg className="nhsuk-icon nhsuk-icon__chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z" />
@@ -53,7 +53,7 @@ const Header = () => {
               </a>
             </li>
             <li className="nhsuk-header__navigation-item">
-              <a className="nhsuk-header__navigation-link" href="/status" onClick={() => history.push("/status")}>
+              <a className="nhsuk-header__navigation-link" onClick={() => history.push("/status")}>
                 Status List
                 <svg className="nhsuk-icon nhsuk-icon__chevron-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M15.5 12a1 1 0 0 1-.29.71l-5 5a1 1 0 0 1-1.42-1.42l4.3-4.29-4.3-4.29a1 1 0 0 1 1.42-1.42l5 5a1 1 0 0 1 .29.71z" />
