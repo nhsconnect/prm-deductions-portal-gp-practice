@@ -2,7 +2,7 @@ locals {
   ecs_cluster_id    = data.terraform_remote_state.prm-deductions-infra.outputs.deductions_public_ecs_cluster_id
   ecs_tasks_sg_id   = data.terraform_remote_state.prm-deductions-infra.outputs.deductions_public_ecs_tasks_sg_id
   private_subnets   = data.terraform_remote_state.prm-deductions-infra.outputs.deductions_public_private_subnets
-  alb_tg_arn        = data.terraform_remote_state.prm-deductions-infra.outputs.deductions_public_alb_tg_arn
+  alb_tg_arn        = aws_alb_target_group.alb-tg.arn
 }
 
 resource "aws_ecs_service" "ecs-service" {
