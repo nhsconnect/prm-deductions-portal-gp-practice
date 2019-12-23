@@ -113,6 +113,9 @@ Builds docker containers `deductions/gp-portal:<commit-no>` and `deductions/gp-p
 # Builds local docker container with ReactJS App contained 
 ./tasks build_docker_local
 
-# Runs the local docker container exposing port 3000
+# Runs the a detatched local docker container exposing port 5000
 ./tasks run_docker_local
+
+# Stops and removes the local docker container
+./tasks stop_docker_local
 ```
