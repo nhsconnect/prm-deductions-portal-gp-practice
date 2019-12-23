@@ -82,10 +82,9 @@ case "${command}" in
       ;;
   _access_test)
       npm install
-      npm install --save-dev puppeteer
+      npm install --save-dev concurrently
       npm rebuild node-sass
-      npm run serve:react
-      npm run pa11y-ci
+      npm run access
       ;;
   access_test)
       dojo "./tasks _access_test"

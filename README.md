@@ -49,7 +49,7 @@ brew install kudulab/homebrew-dojo-osx/dojo
 | test          | Runs both the React app tests and the Express server tests                            |
 | coverage      | Runs all the tests and collects coverage metrics                                      |
 | eject         | Runs `react-scripts eject`                                                            |
-| pa11y-ci      | Runs the accessibility tests, server must be running on port `5000`                   |
+| access        | Runs the accessibility tests, server must be running on port `5000`                   |
 
 ### Development
 
@@ -113,7 +113,7 @@ Builds docker containers `deductions/gp-portal:<commit-no>` and `deductions/gp-p
 # Builds local docker container with ReactJS App contained 
 ./tasks build_docker_local
 
-# Runs the a detatched local docker container exposing port 5000
+# Runs the a detached local docker container exposing port 5000
 ./tasks run_docker_local
 
 # Stops and removes the local docker container
