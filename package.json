@@ -21,7 +21,7 @@
     "start:react": "react-scripts start",
     "serve:react": "serve -p 5000 -s build &",
     "start:server": "npm run build && nodemon ./server/server.js",
-    "start": "npm run build && node ./server/server.js",
+    "start": "npm run build && echo 'Launching server on port 5000...' && node ./server/server.js | echo 'Running on port 5000...' ",
     "test:react": "jest src",
     "test:server": "jest server",
     "test": "jest",

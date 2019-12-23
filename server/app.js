@@ -1,6 +1,6 @@
-import express from 'express';
-import path from 'path';
-import authRouter from'./auth-router.js';
+const express = require('express');
+const path = require('path');
+const authRouter = require('./auth-router.js');
 
 const app = express();
 
@@ -17,4 +17,4 @@ app.get(['/home', '/status'], (req, res) => {
 
 app.use(express.static(path.join(__dirname + '/../build')));
 
-export default app;
+module.exports = app;
