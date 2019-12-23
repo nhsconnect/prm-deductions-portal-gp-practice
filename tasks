@@ -66,19 +66,19 @@ case "${command}" in
   build)
       dojo "./tasks _build"
       ;;
-  _test_react)
+  _test)
       npm install
-      npm run test:react
+      npm run test
       ;;
-  test_react)
-      dojo "./tasks _test_react"
+  test)
+      dojo "./tasks _test"
       ;;
-  _test_server)
+  _coverage)
       npm install
-      npm run test:server
+      npm run coverage
       ;;
-  test_server)
-      dojo "./tasks _test_server"
+  coverage)
+      dojo "./tasks _coverage"
       ;;
   _access_test)
       npm install

@@ -1,4 +1,4 @@
-const portscanner = require("portscanner");
+import portscanner from "portscanner";
 
 const TEST_PORT = 5000;
 const TEST_HOST = "127.0.0.1";

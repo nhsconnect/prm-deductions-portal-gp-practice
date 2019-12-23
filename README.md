@@ -7,13 +7,15 @@ their GP practice to the NHSE Repository.
 
 | Directory     | Description                                                                               | 
 |:--------------|:------------------------------------------------------------------------------------------|
+| /__mocks__    | Contains mocks for jest (i.e. `.scss` files) for test purposes
 | /gocd         | Contains the GoCD pipeline file                                                           |
 | /public       | (React App) Public files                                                                  |
-| /src          | (React App) The ReactJS web application source code for the GP Practice deductions portal |
-| /server       | The ExpressJS server side code that hosts the React App pages                             |
-| /terraform    | Terraform to deploy app as a Fargate task in AWS                                          |
 | /scripts      | Shell scripts for automated tasks:                                                        |
 |               |   *  aws-cli-assumerole.sh                                                                |
+| /server       | The ExpressJS server side code that hosts the React App pages                             |
+| /src          | (React App) The ReactJS web application source code for the GP Practice deductions portal |
+| /terraform    | Terraform to deploy app as a Fargate task in AWS                                          |
+
 
 ## Prerequisites
 
@@ -42,9 +44,10 @@ brew install kudulab/homebrew-dojo-osx/dojo
 | serve:react   | Serves the React static pages on port 5000                                            |
 | start:server  | Builds the react app before launching the Express server on port `5000` using nodemon |
 | start         | Builds the react app before launching the Express server on port `5000`               |
-| test:react    | Runs the React app tests in CI mode                                                   |
+| test:react    | Runs the React app tests                                                              |
 | test:server   | Runs the Express server tests (`/server`)                                             |
 | test          | Runs both the React app tests and the Express server tests                            |
+| coverage      | Runs all the tests and collects coverage metrics                                      |
 | eject         | Runs `react-scripts eject`                                                            |
 | pa11y-ci      | Runs the accessibility tests, server must be running on port `5000`                   |
 
@@ -89,11 +92,11 @@ If a new page needs testing, add it to the array of URLs in the `.pa11yci.json` 
 # Installs relevant dependencies
 npm install 
 
-# Runs tests in node-dojo (ReactJS) 
-./tasks test_react
-
 # Runs tests in node-dojo 
-./tasks test_server
+./tasks test
+
+# Runs tests with coverage in node-dojo 
+./tasks coverage
 
 # Runs accessibility tests in node-dojo
 ./tasks access_test

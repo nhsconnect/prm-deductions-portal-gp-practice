@@ -19,7 +19,7 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks dep
-            test_react:
+            test:
               resources:
                 - docker
               tasks:
@@ -27,8 +27,11 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - ./tasks test_react
-            test_server:
+                      - ./tasks test
+            coverage:
+              artifacts:
+                - build:
+                    source: coverage
               resources:
                 - docker
               tasks:
@@ -36,7 +39,7 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - ./tasks test_server
+                      - ./tasks coverage
             access_test:
               resources:
                 - docker
