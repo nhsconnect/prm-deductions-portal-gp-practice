@@ -82,7 +82,6 @@ case "${command}" in
       ;;
   _access_test)
       npm install
-      npm install --save-dev concurrently
       npm rebuild node-sass
       npm run access
       ;;
