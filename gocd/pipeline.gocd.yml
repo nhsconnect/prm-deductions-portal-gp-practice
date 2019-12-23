@@ -28,6 +28,18 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks test
+            coverage:
+              artifacts:
+                - build:
+                    source: coverage
+              resources:
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks coverage
             access_test:
               resources:
                 - docker
