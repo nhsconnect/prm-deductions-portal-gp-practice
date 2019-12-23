@@ -1,6 +1,7 @@
 # PRM Deductions Portal for GP Practices
 
-The GP Practice Portal is a web application that will be used by GP Practice Staff to transfer a patient from their GP practice to the NHSE Repository.
+The GP Practice Portal is a web application that will be used by GP Practice Staff to transfer a patient from 
+their GP practice to the NHSE Repository.
 
 ## Directories
 
@@ -9,7 +10,8 @@ The GP Practice Portal is a web application that will be used by GP Practice Sta
 | /gocd         | Contains the GoCD pipeline file                                                           |
 | /public       | (React App) Public files                                                                  |
 | /src          | (React App) The ReactJS web application source code for the GP Practice deductions portal |
-| /terraform    | Terraform to deploy app as Fargate task in AWS                                            |
+| /server       | The ExpressJS server side code that hosts the React App pages                             |
+| /terraform    | Terraform to deploy app as a Fargate task in AWS                                          |
 | /scripts      | Shell scripts for automated tasks:                                                        |
 |               |   *  aws-cli-assumerole.sh                                                                |
 
@@ -22,7 +24,7 @@ The GP Practice Portal is a web application that will be used by GP Practice Sta
 
 ### Installing dojo (OSx)
 
-More information on dojo can be found ([kudulab/dojo GIT](https://github.com/kudulab/dojo)).
+More information on dojo can be found at [kudulab/dojo GIT](https://github.com/kudulab/dojo).
 
 ```bash
 brew install kudulab/homebrew-dojo-osx/dojo
@@ -35,23 +37,24 @@ brew install kudulab/homebrew-dojo-osx/dojo
 | Goal          | Description                                                                           |
 |---------------|---------------------------------------------------------------------------------------|
 | clean         | Removes the current build folder                                                      |
-| build         | Builds the react app (src/) into a build/ folder                                      |
-| start:react   | Opens a live version of the React app in a browser (port 3000)                        |
+| build         | Builds the react app (`src/` and `/public`) into a `build/` folder                    |
+| start:react   | Opens a live version of the React app in a browser (port: `3000`)                     |
 | serve:react   | Serves the React static pages on port 5000                                            |
-| start:server  | Builds the react app before launching the Express server on port 5000 using nodemon   |
-| start         | Builds the react app before launching the Express server on port 5000                 |
+| start:server  | Builds the react app before launching the Express server on port `5000` using nodemon |
+| start         | Builds the react app before launching the Express server on port `5000`               |
 | test:react    | Runs the React app tests in CI mode                                                   |
-| test:server   | Runs the Express server tests (/server)                                               |
+| test:server   | Runs the Express server tests (`/server`)                                             |
 | test          | Runs both the React app tests and the Express server tests                            |
 | eject         | Runs `react-scripts eject`                                                            |
-| pa11y-ci      | Runs the accessibility tests, server must be running on port 5000                     |
+| pa11y-ci      | Runs the accessibility tests, server must be running on port `5000`                   |
 
 ### Development
 
-To run during development of the ReactJS App, which will allow user to interactively see changes made
-in the browser and test locally.
 
 #### Developing ReactJS
+
+To run during development of the ReactJS App, which will allow user to interactively see changes made
+in the browser and test locally.
 
 ```bash
 # Launches ReactJS App on local browser at localhost:3000 
@@ -62,11 +65,14 @@ npm run test:react
 ```
 
 #### Developing ExpressJS (Server)
+
+To run during development of the ExpressJS App, which will update the service while you develop the server side code.
+
 ```bash
 # Launches ExpressJS server hosting the React App
 ./tasks run_server_local
 
-# Runs Server Tests
+# Runs Server (Express) Tests
 npm run test:server
 ```
 
@@ -77,8 +83,7 @@ To run before committing, runs the tests and accessibility tests within the node
 By default, it runs tests related to files changed since the last commit. Every time you save a file, it will re-run 
 the tests.
 
-
-If a new page needs testing, add it to the array of URLs in the .pa11yci.json file.
+If a new page needs testing, add it to the array of URLs in the `.pa11yci.json` file.
 
 ```bash
 # Installs relevant dependencies
@@ -96,7 +101,7 @@ npm install
 
 ### Pre-commit Checks
 
-Build and runs a local docker container with the ReactJS App exposed on Port 3000 for final checks.
+Build and runs a local docker container with the ReactJS App exposed on port `3000` for final checks.
 
 Builds docker containers `deductions/gp-portal:<commit-no>` and `deductions/gp-portal:latest`.
 
