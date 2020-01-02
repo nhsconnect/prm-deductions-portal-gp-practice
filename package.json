@@ -18,10 +18,10 @@
   "scripts": {
     "clean": "rm -rf build",
     "build": "react-scripts build",
-    "start:react": "react-scripts start",
+    "start:react": "PORT=5000 react-scripts start",
     "serve:react": "npm run build && echo 'Serving pages on port 5000' && serve -p 5000 -s build",
     "start:server": "npm run build && nodemon ./server/server.js",
-    "start": "npm run build && echo 'Launching server on port 5000...' && node ./server/server.js | echo 'Running on port 5000...' ",
+    "start": "npm run build && echo 'Launching server on port 3000...' && node ./server/server.js | echo 'Running on port 3000...' ",
     "test:react": "jest src",
     "test:server": "jest server",
     "test": "jest",

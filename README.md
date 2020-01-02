@@ -42,8 +42,8 @@ brew install kudulab/homebrew-dojo-osx/dojo
 | build         | Builds the react app (`src/` and `/public`) into a `build/` folder                    |
 | start:react   | Opens a live version of the React app in a browser (port: `3000`)                     |
 | serve:react   | Serves the React static pages on port 5000                                            |
-| start:server  | Builds the react app before launching the Express server on port `5000` using nodemon |
-| start         | Builds the react app before launching the Express server on port `5000`               |
+| start:server  | Builds the react app before launching the Express server on port `3000` using nodemon |
+| start         | Builds the react app before launching the Express server on port `3000`               |
 | test:react    | Runs the React app tests                                                              |
 | test:server   | Runs the Express server tests (`/server`)                                             |
 | test          | Runs both the React app tests and the Express server tests                            |
@@ -113,7 +113,7 @@ Builds docker containers `deductions/gp-portal:<commit-no>` and `deductions/gp-p
 # Builds local docker container with ReactJS App contained 
 ./tasks build_docker_local
 
-# Runs the a detached local docker container exposing port 5000
+# Runs the a detached local docker container exposing port 3000
 ./tasks run_docker_local
 
 # Stops and removes the local docker container
