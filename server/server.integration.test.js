@@ -1,13 +1,13 @@
 const portscanner = require("portscanner");
 
-const TEST_PORT = 5000;
+const TEST_PORT = 3000;
 const TEST_HOST = "127.0.0.1";
 
 describe("server.js", () => {
 
     let stopServer;
 
-    it("should stop the created service on port 5000", () => {
+    it("should stop the created service on port 3000", () => {
 
         stopServer = require("./server");
 

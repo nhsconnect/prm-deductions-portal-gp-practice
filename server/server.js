@@ -5,6 +5,6 @@ const stopServer = () => {
     server.close();
 };
 
-const server = app.listen(5000);
+const server = app.listen(3000);
 
 module.exports = stopServer;

@@ -12,7 +12,7 @@ RUN apk add --no-cache tini bash
 
 COPY ./scripts/start_server.sh /usr/bin/start_server
 
-EXPOSE 5000
+EXPOSE 3000
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/usr/bin/start_server"]
