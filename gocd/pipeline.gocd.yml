@@ -31,7 +31,7 @@ pipelines:
             coverage:
               artifacts:
                 - build:
-                    source: coverage/lcov_report
+                    source: coverage/lcov-report
               resources:
                 - docker
               tasks:
