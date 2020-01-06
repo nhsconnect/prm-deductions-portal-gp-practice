@@ -7,16 +7,13 @@ import { Provider } from 'react-redux'
 import store from './store'
 
 const App = () => (
-  <CookiesProvider>
-    <Provider store={store}>
+
   <Fragment>
     <Header/>
     <div className={styles.content}>
       <DeductionContainer/>
     </div>
   </Fragment>
-      </Provider>
-  </CookiesProvider>
 );
 
 export default App;

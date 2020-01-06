@@ -5,7 +5,7 @@ import {useHistory} from "react-router-dom";
 import {useCookies} from "react-cookie";
 
 const Auth = ()=>{
-console.log(config);
+
   const history = useHistory();
   const [cookies, setCookie, removeCookie] = useCookies(['access_cookie']);
 
@@ -17,7 +17,7 @@ console.log(config);
 
   }).signinRedirectCallback()
     .then(token =>{
-      console.log("signin response success", token);
+      removeCookie('access_cookie');
       setCookie('access_cookie', token, { path: '/' });
     })
     .then(()=>history.push("/home"))

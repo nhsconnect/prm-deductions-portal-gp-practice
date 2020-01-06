@@ -4,7 +4,6 @@ import Logout from "../../logout/Logout";
 
 
 const UserHeader = ({user}) => {
-  console.log('USERHEADER', user)
   const [clicked, setClicked] = useState(true);
   const [showUserInfo, setShowUserInfo] = useState(false);
   const history = useHistory();
@@ -31,8 +30,16 @@ const UserHeader = ({user}) => {
             </a>
           </div>
           <div className="deductions-user-info">
-            <a className="nhsuk-header__transactional-service-name--link deductions-user-info-name" onClick={UserInfoToggle}>WENDY</a>
-            <div className={showUserInfo ? "deductions-user-info-toggled-content" : "deductions-user-info-toggled-content hidden"}>X09</div>
+            <a className="nhsuk-header__transactional-service-name--link deductions-user-info-name" onClick={UserInfoToggle}>Hi {user.given_name}</a>
+            <div className={showUserInfo ? "deductions-user-info-toggled-content" : "deductions-user-info-toggled-content hidden"}>
+              <ul>
+                <li className="deductions-user-info-item">
+                  <b>Primary Organisation</b>
+                  <p>{user.primary_org}</p>
+                </li>
+              </ul>
+
+            </div>
           </div>
         </div>
         <div className="nhsuk-header__content" id="content-header">

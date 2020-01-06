@@ -6,7 +6,7 @@ const mgr = new oidc.UserManager({
   client_id: `${config.NHSIdentityClientId}`,
   redirect_uri: `${config.NHSIdentityRedirectUri}`,
   response_type: 'code',
-  scope: 'openid nhsperson odscodes nationalrbacaccess',
+  scope: 'openid nhsperson odscodes nationalrbacaccess profile',
 
 });
 

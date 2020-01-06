@@ -21,11 +21,17 @@
 .deductions-user-info-toggled-content {
   background-color: #f0f4f5;
   overflow: hidden;
+  padding: 0 18px 0 0;
   color: black;
 }
 
 .deductions-user-info-name {
   display: block;
+}
+
+.deductions-user-info-item {
+  list-style-type: none;
+  height: 30px;
 }
 
 .hidden {

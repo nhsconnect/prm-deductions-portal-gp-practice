@@ -17,10 +17,6 @@ const DeductionContainer = () => {
   const PrivateRoute = ({ children, ...rest }) => {
     const [cookies, setCookie, removeCookie] = useCookies(['access_cookie']);
     const access_cookie = (cookies.hasOwnProperty('access_cookie')) ? cookies['access_cookie'] : '';
-    console.log('children', children)
-    console.log('rest', rest)
-
-
 
     return isAuthenticated(access_cookie)
       .then((auth_value) => {

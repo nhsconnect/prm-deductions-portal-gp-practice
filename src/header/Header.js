@@ -8,22 +8,22 @@ const Header = () => {
   const [userInfo, setUserInfo] = useState('');
   const [cookies, setCookie, removeCookie] = useCookies(['access_cookie']);
 
-  // if (cookies.hasOwnProperty('access_cookie')){
-  //   GetUserInfo(cookies['access_cookie']).then(user=>{
-  //     console.log('userinfo:', user);
-  //     setUserInfo(user);
-  //   });
-  // }
+  if (cookies.hasOwnProperty('access_cookie')){
+    GetUserInfo(cookies['access_cookie']).then(user=>{
+      console.log('userinfo:', user);
+      setUserInfo(user);
+    });
+  }
 
   console.log(cookies);
-if(userInfo !== ''){
+if(userInfo === ''){
   return(
-    <GuestHeader/>
+    <GuestHeader data-testid="header"/>
   );
 }
 else{
   return (
-    <UserHeader/>
+    <UserHeader user={userInfo} data-testid="header"/>
   )
 }
 
