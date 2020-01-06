@@ -1,6 +1,6 @@
 const portscanner = require("portscanner");
 
-const TEST_PORT = 3000;
+const TEST_PORT = 443;
 const TEST_HOST = "127.0.0.1";
 
 describe("server.js", () => {

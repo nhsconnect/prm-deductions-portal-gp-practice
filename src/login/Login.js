@@ -1,6 +1,9 @@
 import React from 'react';
+import {login} from './oidcService'
 
-const Login = ({login, loginMock}) => {
+
+const Login = ({loginMock}) => {
+
   return (
     <div>
       <div className="mockLogin">

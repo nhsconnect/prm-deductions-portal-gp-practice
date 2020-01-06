@@ -1,1 +1,33 @@
 @import "~nhsuk-frontend/packages/nhsuk";
+
+.deductions-header-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.deductions-header-wrap{
+  display:flex;
+  justify-content: space-between;
+}
+
+.deductions-user-info {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.deductions-user-info-toggled-content {
+  background-color: #f0f4f5;
+  overflow: hidden;
+  color: black;
+}
+
+.deductions-user-info-name {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}

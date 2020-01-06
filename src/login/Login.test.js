@@ -1,11 +1,15 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import Login from "./Login";
+import {login} from './oidcService'
+
+jest.mock('./oidcService');
 
 describe("<Login />", () => {
+  login.mockImplementation(() => (jest.fn()));
   it("should go to NHS Identity login page when button is clicked", () => {
-    const login = jest.fn();
-    const {getByText} = render(<Login login={login} />);
+
+    const {getByText} = render(<Login/>);
 
     const loginButton = getByText('Log In to NHS Identity');
     fireEvent.click(loginButton);
