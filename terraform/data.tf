@@ -14,3 +14,19 @@ data "terraform_remote_state" "prm-deductions-infra" {
         encrypt = true
   }
 }
+
+data "aws_ssm_parameter" "identity_url" {
+  name = "/NHS/${var.environment}-${data.aws_caller_identity.current.account_id}/gp-portal/identity_url"
+}
+
+data "aws_ssm_parameter" "redirect_uri" {
+  name = "/NHS/${var.environment}-${data.aws_caller_identity.current.account_id}/gp-portal/redirect_uri"
+}
+
+data "aws_ssm_parameter" "user_info" {
+  name = "/NHS/${var.environment}-${data.aws_caller_identity.current.account_id}/gp-portal/user_info"
+}
+
+data "aws_ssm_parameter" "client_id" {
+  name = "/NHS/${var.environment}-${data.aws_caller_identity.current.account_id}/gp-portal/client_id"
+}

@@ -7,7 +7,7 @@ describe("server.js", () => {
 
     let stopServer;
 
-    it("should stop the created service on port 3000", () => {
+    it("should stop the created service on port 443", () => {
 
         stopServer = require("./server");
 
