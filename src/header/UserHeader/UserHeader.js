@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {useHistory} from "react-router-dom";
 import Logout from "../../logout/Logout";
 
-
 const UserHeader = ({user}) => {
   const [clicked, setClicked] = useState(true);
   const [showUserInfo, setShowUserInfo] = useState(false);

@@ -6,27 +6,32 @@ import UserHeader from "./UserHeader/UserHeader";
 
 const Header = () => {
   const [userInfo, setUserInfo] = useState('');
-  const [cookies, setCookie, removeCookie] = useCookies(['access_cookie']);
+  const [cookies, setCookie, removeCookie] = useCookies(['access_cookie', 'user_cookie']);
 
   if (cookies.hasOwnProperty('access_cookie')){
-    GetUserInfo(cookies['access_cookie']).then(user=>{
-      console.log('userinfo:', user);
-      setUserInfo(user);
-    });
+    if(!cookies.hasOwnProperty(('user_cookie'))) {
+      GetUserInfo(cookies['access_cookie']).then(user=>{
+        setCookie('user_cookie', 'user');
+        setUserInfo(user);
+      });
+    }
   }
 
-  console.log(cookies);
 if(userInfo === ''){
   return(
-    <GuestHeader data-testid="header"/>
+    <div data-testid="header">
+      <GuestHeader/>
+    </div>
+
   );
 }
 else{
   return (
-    <UserHeader user={userInfo} data-testid="header"/>
+    <div data-testid="header">
+      <UserHeader user={userInfo} data-testid="header"/>
+    </div>
   )
 }
-
 };
 
 export default Header;

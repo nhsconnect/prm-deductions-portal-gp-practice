@@ -4,10 +4,12 @@ import {useHistory} from "react-router-dom";
 
 
 const Logout = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['userInfo']);
+  const [cookies, setCookie, removeCookie] = useCookies(['login_cookie, user_cookie, access_cookie']);
   const history = useHistory();
 
   const logoutButton = ()=>{
+      removeCookie('login_cookie');
+      removeCookie('user_cookie');
       removeCookie('access_cookie');
       history.push("/")
   };

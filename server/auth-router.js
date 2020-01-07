@@ -1,6 +1,6 @@
 const express = require('express');
 const axios = require('axios');
-const config = require('../src/config');
+require('dotenv').config();
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
       'Authorization': `Bearer ${req.query.token}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    url: `${config.NHSIdentityUserInfo}`
+    url: `${process.env.REACT_APP_GP_PORTAL_USER_INFO}`
   }).then(respond=>{
     res.status(200).send(respond.data);
   }).catch(err=> res.status(200).send(err));

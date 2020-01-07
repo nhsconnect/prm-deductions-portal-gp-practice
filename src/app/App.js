@@ -3,17 +3,28 @@ import Header from "../header/Header";
 import styles from "./App.module.scss";
 import DeductionContainer from "./DeductionContainer";
 import { CookiesProvider } from 'react-cookie';
-import { Provider } from 'react-redux'
-import store from './store'
+import Login from "../login/Login";
+import {useCookies} from "react-cookie";
 
-const App = () => (
+const App = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['login_cookie']);
 
-  <Fragment>
-    <Header/>
-    <div className={styles.content}>
-      <DeductionContainer/>
+  if (!cookies.hasOwnProperty('login_cookie')){
+    return (<Login></Login>)
+  };
+  return(
+    <div data-testid="protected-content">
+    <CookiesProvider>
+        <Fragment>
+          <Header/>
+          <div className={styles.content}>
+            <DeductionContainer/>
+          </div>
+        </Fragment>
+      </CookiesProvider>
     </div>
-  </Fragment>
-);
+  );
+};
+
 
 export default App;

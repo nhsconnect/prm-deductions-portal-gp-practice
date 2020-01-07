@@ -17,7 +17,6 @@ const Auth = ()=>{
 
   }).signinRedirectCallback()
     .then(token =>{
-      removeCookie('access_cookie');
       setCookie('access_cookie', token, { path: '/' });
     })
     .then(()=>history.push("/home"))
@@ -32,3 +31,4 @@ const Auth = ()=>{
 };
 
 export default Auth;
+

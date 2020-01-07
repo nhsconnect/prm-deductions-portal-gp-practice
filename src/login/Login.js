@@ -1,21 +1,13 @@
 import React from 'react';
 import {login} from './oidcService'
+import {useCookies} from "react-cookie";
 
-
-const Login = ({loginMock}) => {
-
+const Login = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['login_cookie']);
+  setCookie('login_cookie', 'login with NHS Identity', { path: '/' });
+  login();
   return (
-    <div>
-      <div className="mockLogin">
-        <button className="nhsuk-button" onClick={() => loginMock()}>
-          Log In
-        </button>
-      </div>
-      <div data-testid="login">
-        <button className="nhsuk-button" onClick={() => login()}>
-          Log In to NHS Identity
-        </button>
-      </div>
+    <div data-testid="login">
     </div>
   );
 };

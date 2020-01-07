@@ -37,7 +37,7 @@ const DeductionContainer = () => {
     );
   };
 
-  return <Switch>
+  return (<Switch>
       <Route exact path="/">
           <Login loginMock={() => history.push("/home")}/>
       </Route>
@@ -59,7 +59,7 @@ const DeductionContainer = () => {
       <Route path="/logout">
           <Login loginMock={() => history.push("/home")} />
       </Route>
-  </Switch>;
+  </Switch>);
 };
 
 const validateNhsNumber = (nhsNumber) => {
