@@ -7,6 +7,9 @@ IMAGE_REPO_NAME=deductions/gp-portal
 CONTAINER_APP_NAME=portal
 NHS_ENVIRONMENT=dev
 
+# This is where NHS Identity redirects to
+PORTAL_DOMAIN_NAME=deductions.nhs.uk
+
 function tf_plan {
   operation=$1
   cd terraform
@@ -49,6 +52,19 @@ function get_aws_secret {
   echo $json | jq -r ".Parameter.Value"
 }
 
+function generate_certs {
+  if [ ! -f ${PORTAL_DOMAIN_NAME}.key ]; then
+    rm -rf prm-deductions-support-infra
+    git clone https://github.com/nhsconnect/prm-deductions-support-infra.git
+    cd prm-deductions-support-infra
+    dojo "./utils/generate-certs.sh -f ${PORTAL_DOMAIN_NAME} -d ${PORTAL_DOMAIN_NAME}"
+    cd ..
+    cp ./prm-deductions-support-infra/utils/site-certs/${PORTAL_DOMAIN_NAME}* ./
+  else
+    echo "certificates already exist"
+  fi
+}
+
 command="$1"
 case "${command}" in
   _dep)
@@ -66,18 +82,24 @@ case "${command}" in
   build)
       dojo "./tasks _build"
       ;;
+  generate_certs)
+      generate_certs
+      ;;
   _test)
       npm install
-      npm run test
+      sudo npm run test
       ;;
   test)
+      ./tasks generate_certs
       dojo "./tasks _test"
       ;;
   _coverage)
       npm install
-      npm run coverage
+      trap "sudo chown dojo:dojo -R ." EXIT
+      sudo npm run coverage
       ;;
   coverage)
+      ./tasks generate_certs
       dojo "./tasks _coverage"
       ;;
   _access_test)
