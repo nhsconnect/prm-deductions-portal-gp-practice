@@ -5,11 +5,11 @@ const getUserInfo = (token) => {
     method: 'post',
     headers: {'content-type': 'application/json'},
     url: 'https://deductions.nhs.uk/authRouter',
-    params: {
+    data:{
       token: token.access_token
     }
   }).then(userInfo => {
-    console.log('INFO = ', userInfo)
+    console.log('INFO = ', userInfo);
       return userInfo.data;
   })
 };

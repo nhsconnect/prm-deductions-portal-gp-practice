@@ -5,16 +5,16 @@ import React from "react";
 
 describe("<UserHeader />", () => {
   const user ={
-    nhsid_useruid: "988288620301",
+    nhsid_useruid: "0123344535",
     name: "Lee Wendy",
     given_name: "Wendy",
     family_name: "Lee",
-    primary_org: "X09",
+    primary_org: "X11",
     idassurancelevel: "3",
     odscodes: [
       "X09"
     ],
-    sub: "988288620301"
+    sub: "0123344535"
   };
   it("should render the log out navigation link", () => {
     const {getByText} = render(
