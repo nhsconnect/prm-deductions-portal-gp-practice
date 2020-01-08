@@ -1,0 +1,12 @@
+version: '2'
+services:
+  default:
+    links:
+      - portal:deductions.nhs.uk
+  portal:
+    image: ${PORTAL_DOCKER_IMAGE}
+    volumes:
+      - ${DOJO_WORK_OUTER}/deductions.nhs.uk.key:/app/deductions.nhs.uk.key
+      - ${DOJO_WORK_OUTER}/deductions.nhs.uk.crt:/app/deductions.nhs.uk.crt
+    ports:
+      - 443:443

@@ -14,5 +14,7 @@ COPY ./scripts/start_server.sh /usr/bin/start_server
 
 EXPOSE 3000
 
+ENV USE_HTTP=true
+
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/usr/bin/start_server"]

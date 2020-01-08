@@ -120,15 +120,6 @@ case "${command}" in
       docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
       echo Build completed on `date`
       ;;
-  run_docker_local)
-      echo Launching ${IMAGE_REPO_NAME} latest on port 3000
-      docker run -d -p 3000:3000 --name=${CONTAINER_APP_NAME} ${IMAGE_REPO_NAME}
-      ;;
-  stop_docker_local)
-      echo Stopping ${CONTAINER_APP_NAME} currently running on port 3000
-      docker stop ${CONTAINER_APP_NAME}
-      docker rm ${CONTAINER_APP_NAME}
-      ;;
   run_react_local)
       npm install
       npm rebuild node-sass
@@ -155,6 +146,39 @@ case "${command}" in
       $REPOSITORY_URI:$IMAGE_TAG"
       docker push $REPOSITORY_URI:latest
       docker push $REPOSITORY_URI:$IMAGE_TAG
+      ;;
+  _test_docker)
+      while ! curl -i ${PORTAL_URL}; do
+        echo "Waiting for portal server endpoint at ${PORTAL_URL}"
+        sleep 1
+        ((count++))
+        if [ 30 -le $count ]; then
+          echo "Timed-out waiting for portal server at ${PORTAL_URL}"
+          exit 5
+        fi
+      done
+      ;;
+  test_docker_local)
+      export PORTAL_URL="http://deductions.nhs.uk:3000"
+      export PORTAL_DOCKER_IMAGE="${PORTAL_DOCKER_IMAGE:-$IMAGE_REPO_NAME}"
+      dojo -c Dojofile-dtest "./tasks _test_docker"
+      ;;
+  run_docker_local)
+      ./tasks generate_certs
+      export PORTAL_URL="https://deductions.nhs.uk"
+      export USE_HTTP="false"
+      export PORTAL_DOCKER_IMAGE="${PORTAL_DOCKER_IMAGE:-$IMAGE_REPO_NAME}"
+      dojo -c Dojofile-demo bash
+      ;;
+  test_docker)
+      # Tests that image uses variables for config and runs migration on start
+      docker_login
+      COMMIT_HASH=$(git rev-parse HEAD | cut -c 1-7)
+      IMAGE_TAG=${COMMIT_HASH}
+      AWS_ACCOUNT_ID=$(dojo -c Dojofile-infra "aws sts get-caller-identity | jq -r .Account")
+      REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+      export EHR_DOCKER_IMAGE="${REPOSITORY_URI}/$IMAGE_REPO_NAME:${IMAGE_TAG}"
+      ./tasks test_docker_local
       ;;
   tf)
       dojo -c Dojofile-infra "bash"

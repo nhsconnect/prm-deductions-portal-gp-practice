@@ -1,11 +1,11 @@
 # PRM Deductions Portal for GP Practices
 
-The GP Practice Portal is a web application that will be used by GP Practice Staff to transfer a patient from 
+The GP Practice Portal is a web application that will be used by GP Practice Staff to transfer a patient from
 their GP practice to the NHSE Repository.
 
 ## Directories
 
-| Directory     | Description                                                                               | 
+| Directory     | Description                                                                               |
 |:--------------|:------------------------------------------------------------------------------------------|
 | /__mocks__    | Contains mocks for jest (i.e. `.scss` files) for test purposes
 | /gocd         | Contains the GoCD pipeline file                                                           |
@@ -60,7 +60,7 @@ To run during development of the ReactJS App, which will allow user to interacti
 in the browser and test locally.
 
 ```bash
-# Launches ReactJS App on local browser at localhost:3000 
+# Launches ReactJS App on local browser at localhost:3000
 ./tasks run_react_local
 
 # Runs ReactJS Tests
@@ -83,19 +83,19 @@ npm run test:server
 
 To run before committing, runs the tests and accessibility tests within the node-dojo environment.
 
-By default, it runs tests related to files changed since the last commit. Every time you save a file, it will re-run 
+By default, it runs tests related to files changed since the last commit. Every time you save a file, it will re-run
 the tests.
 
 If a new page needs testing, add it to the array of URLs in the `.pa11yci.json` file.
 
 ```bash
 # Installs relevant dependencies
-npm install 
+npm install
 
-# Runs tests in node-dojo 
+# Runs tests in node-dojo
 ./tasks test
 
-# Runs tests with coverage in node-dojo 
+# Runs tests with coverage in node-dojo
 ./tasks coverage
 
 # Runs accessibility tests in node-dojo
@@ -109,13 +109,23 @@ Build and runs a local docker container with the ReactJS App exposed on port `30
 Builds docker containers `deductions/gp-portal:<commit-no>` and `deductions/gp-portal:latest`.
 
 ```bash
+# Creates a package with application to be included in docker image
+./tasks build
 
-# Builds local docker container with ReactJS App contained 
+# Builds local docker container with ReactJS App contained
 ./tasks build_docker_local
 
-# Runs the a detached local docker container exposing port 3000
-./tasks run_docker_local
+# If you don't have the TLS certificates locally yet:
+# Login to AWS:
+dojo -c Dojofile-infra "aws-cli-assumerole -rmfa <role-arn> <your-aws-username> <mfa-code>"
+# export variables from above
 
-# Stops and removes the local docker container
-./tasks stop_docker_local
+# Runs the a detached local docker container exposing port 443
+./tasks run_docker_local
+# (Type exit to stop)
 ```
+
+Server is available on https://localhost with following problems:
+ * Issuing CA is not trusted
+ * It uses TLS 1.2 and it does not work on newer chrome
+ * There NHS identity redirects to https://deductions.nhs.uk. So if you want to 'test it out' you'll need to hack your DNS or /etc/hosts
