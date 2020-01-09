@@ -4,7 +4,9 @@ locals {
     task_log_group          = "/nhs/deductions/${var.environment}-${data.aws_caller_identity.current.account_id}/${var.task_family}"
     environment_variables        = [
       { name = "REACT_APP_GP_PORTAL_IDENTITY_URL", value = data.aws_ssm_parameter.identity_url.value },
-      { name = "REACT_APP_GP_PORTAL_REDIRECT_URI", value = data.aws_ssm_parameter.redirect_uri.value },
+      { name = "REACT_APP_GP_PORTAL_REDIRECT_URI", value = data.aws_ssm_parameter.redirect_uri.value }
+    ]
+    secret_environment_variables = [
       { name = "REACT_APP_GP_PORTAL_USER_INFO", value = data.aws_ssm_parameter.user_info.value },
       { name = "REACT_APP_GP_PORTAL_CLIENT_ID", value = data.aws_ssm_parameter.client_id.value }
     ]
@@ -29,6 +31,7 @@ resource "aws_ecs_task_definition" "task" {
         host_port       = var.task_host_port,
         log_region      = var.region,
         log_group       = local.task_log_group,
-        environment_variables = local.environment_variables
+        environment_variables = jsonencode(local.environment_variables),
+        secrets               = jsonencode(local.secret_environment_variables)
     })
 }

@@ -87,18 +87,19 @@ case "${command}" in
       ;;
   _test)
       npm install
-      sudo npm run test
+      npm run test
       ;;
   test)
+      export USE_HTTP=true
       ./tasks generate_certs
       dojo "./tasks _test"
       ;;
   _coverage)
       npm install
-      trap "sudo chown dojo:dojo -R ." EXIT
-      sudo npm run coverage
+      npm run coverage
       ;;
   coverage)
+      export USE_HTTP=true
       ./tasks generate_certs
       dojo "./tasks _coverage"
       ;;
