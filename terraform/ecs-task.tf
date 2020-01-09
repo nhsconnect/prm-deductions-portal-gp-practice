@@ -7,8 +7,8 @@ locals {
       { name = "REACT_APP_GP_PORTAL_REDIRECT_URI", value = data.aws_ssm_parameter.redirect_uri.value }
     ]
     secret_environment_variables = [
-      { name = "REACT_APP_GP_PORTAL_USER_INFO", value = data.aws_ssm_parameter.user_info.value },
-      { name = "REACT_APP_GP_PORTAL_CLIENT_ID", value = data.aws_ssm_parameter.client_id.value }
+      { name = "REACT_APP_GP_PORTAL_USER_INFO", valueFrom = data.aws_ssm_parameter.user_info.arn },
+      { name = "REACT_APP_GP_PORTAL_CLIENT_ID", valueFrom = data.aws_ssm_parameter.client_id.arn }
     ]
 }
 
