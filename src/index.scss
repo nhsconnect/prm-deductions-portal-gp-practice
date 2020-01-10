@@ -1,39 +1,47 @@
 @import "~nhsuk-frontend/packages/nhsuk";
 
-.deductions-header-container{
+.nhsuk-header__menu {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: flex-end;
+  position: relative;
 }
 
-.deductions-header-wrap{
-  display:flex;
-  justify-content: space-between;
-}
-
-.deductions-user-info {
-  padding-top: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.deductions-user-info-toggled-content {
-  background-color: #f0f4f5;
-  overflow: hidden;
-  padding: 0 18px 0 0;
-  color: black;
-}
-
-.deductions-user-info-name {
+.nhsuk-header__menu-toggle {
   display: block;
 }
 
-.deductions-user-info-item {
-  list-style-type: none;
-  height: 30px;
+.nhsuk-header__navigation {
+  @include print-hide();
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  justify-content: flex-end;
+
+  &.js-show {
+    position:absolute;
+    top:100%;
+  }
 }
 
-.hidden {
-  display: none;
+.nhsuk-header__navigation-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 20vw;
 }
+
+.nhsuk-header__navigation-item {
+  border: 1px solid $nhsuk-border-color;
+  width: 100%;
+  p {
+    margin: 0;
+    background-color: $nhsuk-form-element-background-color;
+    color: $nhsuk-text-color;
+    text-align: left;
+  }
+}
+
+.subheading {
+  font-weight: $nhsuk-font-bold;
+}
+

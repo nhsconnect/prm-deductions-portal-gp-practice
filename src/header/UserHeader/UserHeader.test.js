@@ -33,7 +33,7 @@ describe("<UserHeader />", () => {
       </MemoryRouter>
     );
 
-    expect(getByText('Request')).toBeTruthy();
+    expect(getByText('New Request')).toBeTruthy();
   });
 
   it("should render status list navigation link", () => {
