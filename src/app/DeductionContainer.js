@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from "react";
 import {Route, Switch, useHistory, Redirect} from "react-router-dom";
 import DeductionForm from "../deduction-form/DeductionForm";
