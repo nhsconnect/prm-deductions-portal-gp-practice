@@ -5,7 +5,7 @@ const getUserInfo = (token) => {
   return axios({
     method: 'post',
     headers: {'content-type': 'application/json'},
-    url: 'https://deductions.nhs.uk/authRouter',
+    url: 'https://patient-deductions.nhs.uk/authRouter',
     data:{
       token: token.access_token
     }

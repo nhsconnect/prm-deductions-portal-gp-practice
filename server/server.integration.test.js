@@ -1,11 +1,11 @@
 const portscanner = require("portscanner");
 
 let TEST_PORT;
-if (process.env.USE_HTTP === 'true') {
-  TEST_PORT = 3000;
+if (process.env.USE_HTTPS === 'true') {
+  TEST_PORT = 443;
 }
 else {
-  TEST_PORT = 443;
+  TEST_PORT = 3000;
 }
 const TEST_HOST = "127.0.0.1";
 

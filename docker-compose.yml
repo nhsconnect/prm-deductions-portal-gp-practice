@@ -1,12 +1,20 @@
 version: '2'
 services:
-  default:
-    links:
-      - portal:deductions.nhs.uk
   portal:
-    image: ${PORTAL_DOCKER_IMAGE}
+    image: node:12-slim
+    tty: true
+    stdin_open: true
+    working_dir: /app
+    command: 'npm start'
     volumes:
-      - ${DOJO_WORK_OUTER}/deductions.nhs.uk.key:/app/deductions.nhs.uk.key
-      - ${DOJO_WORK_OUTER}/deductions.nhs.uk.crt:/app/deductions.nhs.uk.crt
+      - ${PWD}:/app
+  web:
+    image: nginx
+    links:
+      - portal:portal
     ports:
-      - 443:443
+     - "443:443"
+    volumes:
+      - ${PWD}/proxy.conf:/etc/nginx/conf.d/default.conf:ro
+      - ${PWD}/${PORTAL_DOMAIN_NAME}.key:/certs/${PORTAL_DOMAIN_NAME}.key
+      - ${PWD}/${PORTAL_DOMAIN_NAME}.crt:/certs/${PORTAL_DOMAIN_NAME}.crt

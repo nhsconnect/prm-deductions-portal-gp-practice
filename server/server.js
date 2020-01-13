@@ -3,16 +3,16 @@ const https = require('https');
 const fs = require('fs');
 
 let server;
-if (process.env.USE_HTTP === 'true') {
-  console.log('USE_HTTP is set to true, listening on 3000')
-  server = app.listen(3000);
+if (process.env.USE_HTTPS === 'true') {
+  console.log('USE_HTTPS is true, listening for https on 443')
+  server = https.createServer({
+      key: fs.readFileSync('patient-deductions.nhs.uk.key'),
+      cert: fs.readFileSync('patient-deductions.nhs.uk.crt')
+  }, app).listen(443);
 }
 else {
-  console.log('USE_HTTP is not true, listening for https on 443')
-  server = https.createServer({
-      key: fs.readFileSync('deductions.nhs.uk.key'),
-      cert: fs.readFileSync('deductions.nhs.uk.crt')
-  }, app).listen(443);
+  console.log('USE_HTTPS is not true, listening on 3000')
+  server = app.listen(3000);
 }
 
 // Convenience method for testing should be used afterAll to ensure the service is torn down

@@ -8,7 +8,9 @@ CONTAINER_APP_NAME=portal
 NHS_ENVIRONMENT=dev
 
 # This is where NHS Identity redirects to
-PORTAL_DOMAIN_NAME=deductions.nhs.uk
+PORTAL_DOMAIN_NAME=patient-deductions.nhs.uk
+
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 function tf_plan {
   operation=$1
@@ -67,6 +69,15 @@ function generate_certs {
 
 command="$1"
 case "${command}" in
+  start_proxy)
+      export PORTAL_DOMAIN_NAME
+      generate_certs
+      sed "s/PORTAL_DOMAIN_NAME/${PORTAL_DOMAIN_NAME}/g" proxy.conf.tmpl > proxy.conf
+      docker-compose up -d
+      ;;
+  stop_proxy)
+      docker-compose down
+      ;;
   _dep)
       echo "Running NPM Audit ..."
       npm audit
@@ -74,7 +85,14 @@ case "${command}" in
   dep)
       dojo "./tasks _dep"
       ;;
+  _install)
+      npm install
+      ;;
+  install)
+      dojo "./tasks _install"
+      ;;
   _build)
+      rm -rf build/*
       npm install
       npm rebuild node-sass # Added to fix an issue with library bindings with OS X vs Linux
       npm run build
@@ -90,7 +108,6 @@ case "${command}" in
       npm run test
       ;;
   test)
-      export USE_HTTP=true
       ./tasks generate_certs
       dojo "./tasks _test"
       ;;
@@ -99,7 +116,6 @@ case "${command}" in
       npm run coverage
       ;;
   coverage)
-      export USE_HTTP=true
       ./tasks generate_certs
       dojo "./tasks _coverage"
       ;;
@@ -160,13 +176,13 @@ case "${command}" in
       done
       ;;
   test_docker_local)
-      export PORTAL_URL="http://deductions.nhs.uk:3000"
+      export PORTAL_URL="http://${PORTAL_DOMAIN_NAME}:3000"
       export PORTAL_DOCKER_IMAGE="${PORTAL_DOCKER_IMAGE:-$IMAGE_REPO_NAME}"
       dojo -c Dojofile-dtest "./tasks _test_docker"
       ;;
   run_docker_local)
       ./tasks generate_certs
-      export PORTAL_URL="https://deductions.nhs.uk"
+      export PORTAL_URL="https://${PORTAL_DOMAIN_NAME}"
       export USE_HTTP="false"
       export PORTAL_DOCKER_IMAGE="${PORTAL_DOCKER_IMAGE:-$IMAGE_REPO_NAME}"
       dojo -c Dojofile-demo bash

@@ -79,6 +79,44 @@ To run during development of the ExpressJS App, which will update the service wh
 npm run test:server
 ```
 
+#### Access over https
+
+Because redirects of the NHS Identity are configured to https, you should start a local proxy that serves webpage at that URL.
+1. Generate certificates for your local proxy server.
+ - First authenticate with AWS and export your credentials on the terminal. You can do so with:
+```
+dojo -c Dojofile-infra
+# Then type-in your details:
+aws-cli-assumerole -rmfa <role-arn> <your-username> <mfa-otp-code>
+```
+ - Then generate the certificates:
+```
+./tasks generate_certs
+```
+2. Add the portal address in `/etc/hosts`, as such:
+```
+127.0.0.1 patient-deductions.nhs.uk
+```
+3. Get dependencies (Note that running npm install on Mac, will produce different results, so please run the command below):
+```
+./tasks install
+```
+4. Put secrets and config in `.env` file.
+```
+NODE_ENV=local
+REACT_APP_GP_PORTAL_IDENTITY_URL=<secret>
+REACT_APP_GP_PORTAL_REDIRECT_URI=https://patient-deductions.nhs.uk/auth
+REACT_APP_GP_PORTAL_USER_INFO=<secret>
+REACT_APP_GP_PORTAL_CLIENT_ID=<secret>
+```
+5. (On a second terminal) start the local https proxy and the node server (actually runs `npm start` in docker container):
+```
+./tasks start_proxy
+```
+6. The portal should be available at the address that you configured earlier, such as `https://patient-deductions.nhs.uk`
+
+To stop and remove the proxy, run `./tasks stop_proxy`.
+
 ### Test using node-dojo
 
 To run before committing, runs the tests and accessibility tests within the node-dojo environment.
@@ -124,8 +162,3 @@ dojo -c Dojofile-infra "aws-cli-assumerole -rmfa <role-arn> <your-aws-username> 
 ./tasks run_docker_local
 # (Type exit to stop)
 ```
-
-Server is available on https://localhost with following problems:
- * Issuing CA is not trusted
- * It uses TLS 1.2 and it does not work on newer chrome
- * There NHS identity redirects to https://deductions.nhs.uk. So if you want to 'test it out' you'll need to hack your DNS or /etc/hosts

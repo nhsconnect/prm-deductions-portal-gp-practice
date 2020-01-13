@@ -1,3 +1,5 @@
+.env
+proxy.conf
 # IntelliJ
 .idea
 .terraform
@@ -26,3 +28,4 @@ yarn-error.log*
 /prm-deductions-support-infra/
 /*.crt
 /*.key
+*.dojo
