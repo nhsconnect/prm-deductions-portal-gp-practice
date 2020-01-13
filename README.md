@@ -117,6 +117,59 @@ REACT_APP_GP_PORTAL_CLIENT_ID=<secret>
 
 To stop and remove the proxy, run `./tasks stop_proxy`.
 
+#### Run Locally
+
+The current NHS Identity will only accept three redirect uri as below.
+
+```
+https://deductions.nhs.uk/auth
+https://test.patient-deductions.nhs.uk/auth
+https://dev.patient-deductions.nhs.uk/auth
+```
+
+
+So if you want to 'test it out' you'll need to hack your DNS or /etc/hosts, 
+and make sure you have right certificate for TLS, and correct environment variables. 
+
+To generate certificate, you can use [prm-deductions-support-infra](https://github.com/nhsconnect/prm-deductions-support-infra), 
+which allowed you to generate the TLS certificate based on any domain name you want.
+
+Eg. if you want to use `https://dev.patient-deductions.nhs.uk/auth` as your NHS Identity redirect uri, 
+you will need to make your localhost listen to `dev.patient-deductions.nhs.uk` and put your TLS certificate for 
+`dev.patient-deductions.nhs.uk` in your root folder.
+
+If you don't know how to let your localhost listen to other domain, you can try to use the command as below.
+
+Run this to clean your cache
+```
+dscacheutil -flushcache
+```
+
+Then run this to change your route (if you are mac, you need sudo)
+
+```
+sudo nano /private/etc/hosts
+```
+
+You have to set up your `.env`. You can see example `.evn` in the git repo.
+
+```
+NODE_ENV=local
+REACT_APP_GP_PORTAL_IDENTITY_URL=https://example/oauth2/oidc
+REACT_APP_GP_PORTAL_REDIRECT_URI=https://example.deductions/auth
+REACT_APP_GP_PORTAL_USER_INFO=https://exampleoauth2/oidc/userinfo
+REACT_APP_GP_PORTAL_CLIENT_ID=your_client_id
+```
+
+If you check everything has been set up correctly, you can start the portal locally by running 
+
+```
+npm start
+```
+This will start the server both frontend and backend with NHS Identity fully integrated.
+
+
+
 ### Test using node-dojo
 
 To run before committing, runs the tests and accessibility tests within the node-dojo environment.
@@ -162,3 +215,10 @@ dojo -c Dojofile-infra "aws-cli-assumerole -rmfa <role-arn> <your-aws-username> 
 ./tasks run_docker_local
 # (Type exit to stop)
 ```
+
+Server is available on https://localhost with following problems:
+ * Issuing CA is not trusted
+ * It uses TLS 1.2 and it does not work on newer chrome
+
+
+
