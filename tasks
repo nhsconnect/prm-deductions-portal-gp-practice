@@ -5,7 +5,14 @@ set -Eeo pipefail
 AWS_DEFAULT_REGION=eu-west-2
 IMAGE_REPO_NAME=deductions/gp-portal
 CONTAINER_APP_NAME=portal
-NHS_ENVIRONMENT=dev
+NHS_SERVICE=gp-portal
+
+function check_env {
+  if [[ -z "${NHS_ENVIRONMENT}" ]]; then
+    echo "Must set NHS_ENVIRONMENT"
+    exit 1
+  fi
+}
 
 # This is where NHS Identity redirects to
 PORTAL_DOMAIN_NAME=patient-deductions.nhs.uk
@@ -19,7 +26,7 @@ function tf_plan {
   COMMIT_HASH=$(git rev-parse HEAD | cut -c 1-7)
   IMAGE_TAG=${COMMIT_HASH}
 
-  terraform init
+  terraform init -backend-config key=${NHS_SERVICE}-${NHS_ENVIRONMENT}/terraform.tfstate
   terraform get # modules
   if [[ "${operation}" == "create" ]]; then
     terraform plan -var task_image_tag=$IMAGE_TAG -var-file=$NHS_ENVIRONMENT.tfvars -out="nhs_deployment.tfplan"
@@ -33,7 +40,7 @@ function tf_plan {
 
 function tf_apply {
   cd terraform
-  terraform init
+  terraform init -backend-config key=${NHS_SERVICE}-${NHS_ENVIRONMENT}/terraform.tfstate
   terraform get # modules
   terraform apply nhs_deployment.tfplan
   terraform output -json > tf-out.json
@@ -200,18 +207,21 @@ case "${command}" in
       ./tasks test_docker_local
       ;;
   tf)
+      check_env
       dojo -c Dojofile-infra "bash"
       ;;
   _tf_plan)
       tf_plan "$2"
       ;;
   tf_plan)
+      check_env
       dojo -c Dojofile-infra "./tasks _tf_plan $2"
       ;;
   _tf_apply)
       tf_apply
       ;;
   tf_apply)
+      check_env
       dojo -c Dojofile-infra "./tasks _tf_apply"
       ;;
   _wait_ecs)
@@ -221,6 +231,7 @@ case "${command}" in
         --services $NHS_ENVIRONMENT-gp-practice-portal-service
       ;;
   wait_ecs)
+      check_env
       dojo -c Dojofile-infra "./tasks _wait_ecs"
       ;;
   *)

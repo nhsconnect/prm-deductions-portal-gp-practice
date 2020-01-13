@@ -1,7 +1,7 @@
 locals {
-  ecs_cluster_id    = data.terraform_remote_state.prm-deductions-infra.outputs.deductions_public_ecs_cluster_id
-  ecs_tasks_sg_id   = data.terraform_remote_state.prm-deductions-infra.outputs.deductions_public_ecs_tasks_sg_id
-  private_subnets   = data.terraform_remote_state.prm-deductions-infra.outputs.deductions_public_private_subnets
+  ecs_cluster_id    = data.aws_ssm_parameter.deductions_public_ecs_cluster_id.value
+  ecs_tasks_sg_id   = data.aws_ssm_parameter.deductions_public_ecs_tasks_sg_id.value
+  private_subnets   = split(",", data.aws_ssm_parameter.deductions_public_private_subnets.value)
   alb_tg_arn        = aws_alb_target_group.alb-tg.arn
 }
 
