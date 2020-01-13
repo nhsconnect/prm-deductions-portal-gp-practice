@@ -136,7 +136,7 @@ which allowed you to generate the TLS certificate based on any domain name you w
 
 Eg. if you want to use `https://dev.patient-deductions.nhs.uk/auth` as your NHS Identity redirect uri, 
 you will need to make your localhost listen to `dev.patient-deductions.nhs.uk` and put your TLS certificate for 
-`dev.patient-deductions.nhs.uk` in your root folder.
+`dev.patient-deductions.nhs.uk` in your root folder. Also make sure you start your proxy server.
 
 If you don't know how to let your localhost listen to other domain, you can try to use the command as below.
 

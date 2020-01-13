@@ -4,14 +4,14 @@ const fs = require('fs');
 
 let server;
 if (process.env.USE_HTTPS === 'true') {
-  console.log('USE_HTTPS is true, listening for https on 443')
+  console.log('USE_HTTPS is true, listening for https on 443');
   server = https.createServer({
-      key: fs.readFileSync('patient-deductions.nhs.uk.key'),
-      cert: fs.readFileSync('patient-deductions.nhs.uk.crt')
+      key: fs.readFileSync('dev.patient-deductions.nhs.uk.key'),
+      cert: fs.readFileSync('dev.patient-deductions.nhs.uk.crt')
   }, app).listen(443);
 }
 else {
-  console.log('USE_HTTPS is not true, listening on 3000')
+  console.log('USE_HTTPS is not true, listening on 3000');
   server = app.listen(3000);
 }
 
