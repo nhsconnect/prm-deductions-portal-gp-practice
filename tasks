@@ -96,6 +96,8 @@ case "${command}" in
       npm install
       npm rebuild node-sass # Added to fix an issue with library bindings with OS X vs Linux
       npm run build
+      # Remove symlink to missing file
+      rm -f build/favicon.ico
       ;;
   build)
       dojo "./tasks _build"
