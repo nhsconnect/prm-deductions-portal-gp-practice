@@ -87,7 +87,7 @@ case "${command}" in
       ;;
   _dep)
       echo "Running NPM Audit ..."
-      npm audit
+      npm audit --audit-level=moderate
       ;;
   dep)
       dojo "./tasks _dep"

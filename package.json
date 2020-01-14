@@ -66,11 +66,13 @@
     "@babel/preset-env": "^7.7.7",
     "@testing-library/react": "^9.3.0",
     "concurrently": "^5.0.2",
+    "fibers": "^4.0.2",
     "jest": "^24.9.0",
     "nodemon": "^2.0.2",
     "pa11y": "^5.3.0",
     "pa11y-ci": "^2.3.0",
     "portscanner": "^2.2.0",
+    "sass": "^1.24.4",
     "supertest": "^4.0.2",
     "wait-on": "^3.3.0"
   }
