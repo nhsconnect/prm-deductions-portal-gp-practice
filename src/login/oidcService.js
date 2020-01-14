@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import oidc from 'oidc-client';
 import config from '../config'
 

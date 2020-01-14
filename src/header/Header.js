@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import React, {useState} from 'react';
 import {useCookies} from "react-cookie";
 import GetUserInfo from './userService';

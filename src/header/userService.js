@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import axios from 'axios';
 const getUserInfo = (token) => {
   console.log('TOKEN = ', token);
