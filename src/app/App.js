@@ -10,7 +10,7 @@ import config from "../config";
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['login_cookie']);
-
+  console.log('isLocal:', config.isLocal);
   if(config.isLocal){
     return (
       <div className={styles.content}>
