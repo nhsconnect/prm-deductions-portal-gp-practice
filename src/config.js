@@ -1,8 +1,8 @@
 const config = {
-  NHSIdentityUrl: process.env.REACT_APP_GP_PORTAL_IDENTITY_URL,
-  NHSIdentityClientId:process.env.REACT_APP_GP_PORTAL_CLIENT_ID,
-  NHSIdentityUserInfo:process.env.REACT_APP_GP_PORTAL_USER_INFO,
-  NHSIdentityRedirectUri:process.env.REACT_APP_GP_PORTAL_REDIRECT_URI
+  NHSIdentityUrl: 'https://am.nhsspit-2.ptl.nhsd-esa.net/openam/oauth2/oidc',
+  NHSIdentityClientId: '113012489833.apps.national',
+  NHSIdentityUserInfo:'https://am.nhsspit-2.ptl.nhsd-esa.net/openam/oauth2/oidc/userinfo',
+  NHSIdentityRedirectUri:'https://dev.patient-deductions.nhs.uk/auth'
 };
 
 module.exports= config;
