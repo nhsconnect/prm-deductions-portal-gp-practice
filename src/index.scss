@@ -38,6 +38,9 @@
     background-color: $nhsuk-form-element-background-color;
     color: $nhsuk-text-color;
     text-align: left;
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
