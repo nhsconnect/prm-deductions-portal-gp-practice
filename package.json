@@ -32,7 +32,7 @@
     "coverage": "jest --collectCoverage",
     "eject": "react-scripts eject",
     "test:access": "npm install --no-save puppeteer && wait-on http-get://127.0.0.1:5000 && pa11y-ci --config '.pa11yci.json'",
-    "access": "concurrently --kill-others \"npm run serve:react\" \"npm run test:access\" -s first"
+    "access": "concurrently --kill-others \"PUBLIC_URL=http://localhost:5000 npm run serve:react\" \"npm run test:access\" -s first"
   },
   "eslintConfig": {
     "extends": "react-app"

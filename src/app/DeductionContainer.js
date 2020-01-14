@@ -11,8 +11,7 @@ const DeductionContainer = () => {
   const history = useHistory();
 
   return (<Switch>
-      <Route exact path="/">
-          <Login loginMock={() => history.push("/home")}/>
+      <Route exact path="/" >
       </Route>
       <Route path="/auth" component={Auth}>
       </Route>
