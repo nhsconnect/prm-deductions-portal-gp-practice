@@ -1,6 +1,6 @@
 locals {
   ecs_cluster_id    = data.aws_ssm_parameter.deductions_public_ecs_cluster_id.value
-  ecs_tasks_sg_id   = data.aws_ssm_parameter.deductions_public_ecs_tasks_sg_id.value
+  ecs_tasks_sg_id   = data.aws_ssm_parameter.deductions_public_gp_portal_sg_id.value
   private_subnets   = split(",", data.aws_ssm_parameter.deductions_public_private_subnets.value)
   alb_tg_arn        = aws_alb_target_group.alb-tg.arn
 }
@@ -22,4 +22,7 @@ resource "aws_ecs_service" "ecs-service" {
     container_name   = var.service_container_name
     container_port   = var.service_container_port
   }
+
+  depends_on = [aws_alb_target_group.alb-tg, 
+                    aws_alb_listener.alb-listener-https]
 }

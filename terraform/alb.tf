@@ -7,8 +7,28 @@ resource "aws_alb_target_group" "alb-tg" {
   deregistration_delay  = 20
 }
 
+resource "aws_alb_listener_rule" "alb-listener-rule" {
+  listener_arn = data.aws_ssm_parameter.deductions_public_alb_httpl_arn.value
+  priority     = 209
+
+  action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+
+  condition {
+    field  = "host-header"
+    values = [aws_acm_certificate.gp-portal-certificate.domain_name]
+  }
+}
+
 resource "aws_alb_listener" "alb-listener-https" {
-  load_balancer_arn = aws_alb.alb.arn
+  load_balancer_arn = data.aws_ssm_parameter.deductions_public_alb_arn.value
   port              = "443"
   protocol          = "HTTPS"
 
@@ -25,3 +45,4 @@ resource "aws_alb_listener" "alb-listener-https" {
     }
   }
 }
+
