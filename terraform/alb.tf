@@ -7,24 +7,8 @@ resource "aws_alb_target_group" "alb-tg" {
   deregistration_delay  = 20
 }
 
-resource "aws_alb_listener" "alb-listener-http" {
-  load_balancer_arn = data.terraform_remote_state.prm-deductions-infra.outputs.deductions_public_alb_arn
-  port              = "80"
-  protocol          = "HTTP"
-
-  default_action {
-    type = "redirect"
-
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
-    }
-  }
-}
-
 resource "aws_alb_listener" "alb-listener-https" {
-  load_balancer_arn = data.terraform_remote_state.prm-deductions-infra.outputs.deductions_public_alb_arn
+  load_balancer_arn = aws_alb.alb.arn
   port              = "443"
   protocol          = "HTTPS"
 
@@ -32,7 +16,13 @@ resource "aws_alb_listener" "alb-listener-https" {
   certificate_arn   = aws_acm_certificate_validation.default.certificate_arn
 
   default_action {
-    target_group_arn = aws_alb_target_group.alb-tg.arn
-    type             = "forward"
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Error"
+      status_code  = "501"
+    }
   }
 }
+
