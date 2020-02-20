@@ -28,6 +28,20 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks test
+            coverage:
+              artifacts:
+                - build:
+                    source: coverage/lcov-report
+              tabs:
+                coverage: lcov-report/index.html
+              resources:
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks coverage
             access_test:
               resources:
                 - docker
@@ -43,8 +57,6 @@ pipelines:
               artifacts:
                 - build:
                     source: build
-                - build:
-                    source: node_modules
               tasks:
                 - exec:
                     command: /bin/bash
@@ -62,16 +74,72 @@ pipelines:
                     stage: build
                     job: npm_install
                     source: build
-                - fetch:
-                    stage: build
-                    job: npm_install
-                    source: node_modules
                 - exec:
                     command: /bin/bash
                     arguments:
                       - -c
                       - ./tasks build_docker
-      - deploy_dev:
+      - test_docker:
+          clean_workspace: true
+          jobs:
+            test:
+              resources:
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks test_docker
+
+  "prm-deductions-portal-gp-practice.dev":
+    group: deductions
+    label_template: "${git[:8]}"
+    materials:
+      git:
+        type: configrepo
+      app:
+        pipeline: prm-deductions-portal-gp-practice
+        stage: test_docker
+    environment_variables:
+      NHS_ENVIRONMENT: dev
+    stages:
+      - deploy:
+          clean_workspace: true
+          jobs:
+            deploy:
+              resources:
+                - docker
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks tf_plan create
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks tf_apply
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks wait_ecs
+
+  "prm-deductions-portal-gp-practice.test":
+    group: deductions
+    label_template: "${git[:8]}"
+    materials:
+      git:
+        type: configrepo
+      dev_env:
+        pipeline: prm-deductions-portal-gp-practice.dev
+        stage: deploy
+    environment_variables:
+      NHS_ENVIRONMENT: test
+    stages:
+      - deploy:
           clean_workspace: true
           jobs:
             deploy:

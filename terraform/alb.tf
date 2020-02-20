@@ -2,7 +2,7 @@ resource "aws_alb_target_group" "alb-tg" {
   name                  = "${var.environment}-${var.component_name}-alb-tg"
   port                  = 3000
   protocol              = "HTTP"
-  vpc_id                = data.terraform_remote_state.prm-deductions-infra.outputs.deductions_public_vpc_id
+  vpc_id                = data.aws_ssm_parameter.deductions_public_vpc_id.value
   target_type           = "ip"
   deregistration_delay  = 20
 }
@@ -25,4 +25,3 @@ resource "aws_alb_listener" "alb-listener-https" {
     }
   }
 }
-

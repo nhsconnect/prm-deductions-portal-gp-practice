@@ -1,6 +1,7 @@
 [
     {
-        "environment": [],
+        "environment": ${environment_variables},
+        "secrets": ${secrets},
         "name": "${container_name}",
         "image": "${ecr_url}/${image_name}:${image_tag}",
         "cpu": ${cpu},
@@ -18,7 +19,7 @@
             "options": {
                 "awslogs-region": "${log_region}",
                 "awslogs-stream-prefix": "log",
-                "awslogs-group": "/nhs/deductions/dev-327778747031/gp-portal"
+                "awslogs-group": "${log_group}"
             }
         },
         "essential": true,

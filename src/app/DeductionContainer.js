@@ -5,19 +5,15 @@ import Confirmation from "../confirmation/Confirmation";
 import Success from "../success/Success";
 import Login from "../login/Login";
 import Auth from "../auth/Auth"
-import NHSIdentitySandpitLogInUrl from "../config";
 import StatusList from "../status-list/StatusList";
 
 const DeductionContainer = () => {
   const history = useHistory();
 
-  return <Switch>
-      <Route exact path="/">
-          <Login login={() => window.location.href = `${NHSIdentitySandpitLogInUrl}`} loginMock={() => history.push("/home")}/>
+  return (<Switch>
+      <Route exact path="/" >
       </Route>
       <Route path="/auth" component={Auth}>
-          {/*<DeductionForm submitDeduction={() => history.push("/confirmation")}*/}
-          {/*               validateNhsNumber={validateNhsNumber}/>*/}
       </Route>
       <Route path='/home'>
           <DeductionForm submitDeduction={() => history.push("/confirmation")}
@@ -33,9 +29,9 @@ const DeductionContainer = () => {
           <StatusList/>
       </Route>
       <Route path="/logout">
-          <Login login={() => window.location.href = `${NHSIdentitySandpitLogInUrl}`} loginMock={() => history.push("/home")} />
+          <Login loginMock={() => history.push("/home")} />
       </Route>
-  </Switch>;
+  </Switch>);
 };
 
 const validateNhsNumber = (nhsNumber) => {

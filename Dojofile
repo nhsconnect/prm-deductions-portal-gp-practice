@@ -1,1 +1,2 @@
-DOJO_DOCKER_IMAGE="nhsdev/node-dojo:73a15dd38681f9fb8b0bf157edc7e1fe70a86ca0-slim"
+DOJO_DOCKER_IMAGE="nhsdev/node-dojo:b7293e755a8f243181df595c1f7198ac9a85faca-slim"
+DOJO_DOCKER_OPTIONS="--add-host patient-deductions.nhs.uk:127.0.0.1"

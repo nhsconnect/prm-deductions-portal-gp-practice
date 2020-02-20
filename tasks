@@ -6,7 +6,18 @@ AWS_DEFAULT_REGION=eu-west-2
 IMAGE_REPO_NAME=deductions/gp-portal
 CONTAINER_APP_NAME=portal
 NHS_SERVICE=gp-portal
-NHS_ENVIRONMENT=dev
+
+function check_env {
+  if [[ -z "${NHS_ENVIRONMENT}" ]]; then
+    echo "Must set NHS_ENVIRONMENT"
+    exit 1
+  fi
+}
+
+# This is where NHS Identity redirects to
+PORTAL_DOMAIN_NAME=patient-deductions.nhs.uk
+
+PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 function tf_plan {
   operation=$1
@@ -50,37 +61,77 @@ function get_aws_secret {
   echo $json | jq -r ".Parameter.Value"
 }
 
+function generate_certs {
+  if [ ! -f ${PORTAL_DOMAIN_NAME}.key ]; then
+    rm -rf prm-deductions-support-infra
+    git clone https://github.com/nhsconnect/prm-deductions-support-infra.git
+    cd prm-deductions-support-infra
+    dojo "./utils/generate-certs.sh -f ${PORTAL_DOMAIN_NAME} -d ${PORTAL_DOMAIN_NAME}"
+    cd ..
+    cp ./prm-deductions-support-infra/utils/site-certs/${PORTAL_DOMAIN_NAME}* ./
+  else
+    echo "certificates already exist"
+  fi
+}
+
 command="$1"
 case "${command}" in
+  start_proxy)
+      export PORTAL_DOMAIN_NAME
+      generate_certs
+      sed "s/PORTAL_DOMAIN_NAME/${PORTAL_DOMAIN_NAME}/g" proxy.conf.tmpl > proxy.conf
+      docker-compose up -d
+      ;;
+  stop_proxy)
+      docker-compose down
+      ;;
   _dep)
       echo "Running NPM Audit ..."
-      npm audit
+      npm audit --audit-level=moderate
       ;;
   dep)
       dojo "./tasks _dep"
       ;;
+  _install)
+      npm install
+      ;;
+  install)
+      dojo "./tasks _install"
+      ;;
   _build)
+      rm -rf build/*
       npm install
       npm rebuild node-sass # Added to fix an issue with library bindings with OS X vs Linux
       npm run build
+      # Remove symlink to missing file
+      rm -f build/favicon.ico
       ;;
   build)
       dojo "./tasks _build"
       ;;
+  generate_certs)
+      generate_certs
+      ;;
   _test)
       npm install
-      npm run test-ci
+      npm run test
       ;;
   test)
+      ./tasks generate_certs
       dojo "./tasks _test"
+      ;;
+  _coverage)
+      npm install
+      npm run coverage
+      ;;
+  coverage)
+      ./tasks generate_certs
+      dojo "./tasks _coverage"
       ;;
   _access_test)
       npm install
-      npm install --save-dev puppeteer
-      npm rebuild node-sass # Added to fix an issue with library bindings with OS X vs Linux
-      npm run build
-      npm run serve
-      npm run pa11y-ci
+      npm rebuild node-sass
+      npm run access
       ;;
   access_test)
       dojo "./tasks _access_test"
@@ -95,15 +146,17 @@ case "${command}" in
       docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
       echo Build completed on `date`
       ;;
-  run_docker_local)
-      echo Launching ${IMAGE_REPO_NAME} latest on port 3000
-      docker run -it -p 3000:3000 --name=${CONTAINER_APP_NAME} ${IMAGE_REPO_NAME}
-      ;;
   run_react_local)
       npm install
       npm rebuild node-sass
-      echo Launcting React app...
-      npm start
+      echo Launching React app...
+      npm run start:react
+      ;;
+  run_server_local)
+      npm install
+      npm rebuild node-sass
+      echo Launching Express server...
+      npm run start:server
       ;;
   build_docker)
       docker_login
@@ -120,19 +173,55 @@ case "${command}" in
       docker push $REPOSITORY_URI:latest
       docker push $REPOSITORY_URI:$IMAGE_TAG
       ;;
+  _test_docker)
+      while ! curl -i ${PORTAL_URL}; do
+        echo "Waiting for portal server endpoint at ${PORTAL_URL}"
+        sleep 1
+        ((count++))
+        if [ 30 -le $count ]; then
+          echo "Timed-out waiting for portal server at ${PORTAL_URL}"
+          exit 5
+        fi
+      done
+      ;;
+  test_docker_local)
+      export PORTAL_URL="http://${PORTAL_DOMAIN_NAME}:3000"
+      export PORTAL_DOCKER_IMAGE="${PORTAL_DOCKER_IMAGE:-$IMAGE_REPO_NAME}"
+      dojo -c Dojofile-dtest "./tasks _test_docker"
+      ;;
+  run_docker_local)
+      ./tasks generate_certs
+      export PORTAL_URL="https://${PORTAL_DOMAIN_NAME}"
+      export USE_HTTP="false"
+      export PORTAL_DOCKER_IMAGE="${PORTAL_DOCKER_IMAGE:-$IMAGE_REPO_NAME}"
+      dojo -c Dojofile-demo bash
+      ;;
+  test_docker)
+      # Tests that image uses variables for config and runs migration on start
+      docker_login
+      COMMIT_HASH=$(git rev-parse HEAD | cut -c 1-7)
+      IMAGE_TAG=${COMMIT_HASH}
+      AWS_ACCOUNT_ID=$(dojo -c Dojofile-infra "aws sts get-caller-identity | jq -r .Account")
+      REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+      export PORTAL_DOCKER_IMAGE="${REPOSITORY_URI}/$IMAGE_REPO_NAME:${IMAGE_TAG}"
+      ./tasks test_docker_local
+      ;;
   tf)
+      check_env
       dojo -c Dojofile-infra "bash"
       ;;
   _tf_plan)
       tf_plan "$2"
       ;;
   tf_plan)
+      check_env
       dojo -c Dojofile-infra "./tasks _tf_plan $2"
       ;;
   _tf_apply)
       tf_apply
       ;;
   tf_apply)
+      check_env
       dojo -c Dojofile-infra "./tasks _tf_apply"
       ;;
   _wait_ecs)
@@ -142,6 +231,7 @@ case "${command}" in
         --services $NHS_ENVIRONMENT-gp-practice-portal-service
       ;;
   wait_ecs)
+      check_env
       dojo -c Dojofile-infra "./tasks _wait_ecs"
       ;;
   *)

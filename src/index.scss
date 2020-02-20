@@ -1,1 +1,50 @@
 @import "~nhsuk-frontend/packages/nhsuk";
+
+.nhsuk-header__menu {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.nhsuk-header__menu-toggle {
+  display: block;
+}
+
+.nhsuk-header__navigation {
+  @include print-hide();
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  justify-content: flex-end;
+
+  &.js-show {
+    position:absolute;
+    top:100%;
+  }
+}
+
+.nhsuk-header__navigation-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 20vw;
+}
+
+.nhsuk-header__navigation-item {
+  border: 1px solid $nhsuk-border-color;
+  width: 100%;
+  p {
+    margin: 0;
+    background-color: $nhsuk-form-element-background-color;
+    color: $nhsuk-text-color;
+    text-align: left;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.subheading {
+  font-weight: $nhsuk-font-bold;
+}
+

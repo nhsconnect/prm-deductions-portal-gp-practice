@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "express-validator": "^6.3.1",
     "nhsuk-frontend": "^2.3.2",
     "node-sass": "^4.13.0",
+    "oidc-client": "^1.10.1",
     "react": "^16.10.2",
     "react-cookie": "^4.0.1",
     "react-dom": "^16.10.2",
@@ -16,13 +20,19 @@
     "yarn": "^1.19.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "clean": "rm -rf build",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test-ci": "CI=true react-scripts test",
+    "start:react": "PORT=5000 react-scripts start",
+    "serve:react": "npm run build && echo 'Serving pages on port 5000' && serve -p 5000 -s build",
+    "start:server": "npm run build && nodemon ./server/server.js",
+    "start": "npm run build && echo 'Launching server on port 3000...' && node ./server/server.js | echo 'Running on port 3000... Please use a proxy to get HTTPS' ",
+    "test:react": "jest src",
+    "test:server": "jest server",
+    "test": "jest",
+    "coverage": "jest --collectCoverage",
     "eject": "react-scripts eject",
-    "serve": "serve -p 5000 -s build &",
-    "pa11y-ci": "wait-on http-get://127.0.0.1:5000 && pa11y-ci --config '.pa11yci.json'"
+    "test:access": "npm install --no-save puppeteer && wait-on http-get://127.0.0.1:5000 && pa11y-ci --config '.pa11yci.json'",
+    "access": "concurrently --kill-others \"PUBLIC_URL=http://localhost:5000 npm run serve:react\" \"npm run test:access\" -s first"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,13 +49,30 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "coverageThreshold": {
+      "global": {
+        "branches": 0,
+        "functions": 0,
+        "lines": 0,
+        "statements": 0
+      }
+    }
+  },
   "devDependencies": {
+    "@babel/preset-env": "^7.7.7",
     "@testing-library/react": "^9.3.0",
-    "http-server": "^0.12.0",
+    "concurrently": "^5.0.2",
+    "fibers": "^4.0.2",
+    "jest": "^24.9.0",
     "nodemon": "^2.0.2",
     "pa11y": "^5.3.0",
     "pa11y-ci": "^2.3.0",
-    "puppeteer": "^2.0.0",
+    "portscanner": "^2.2.0",
+    "sass": "^1.24.4",
     "supertest": "^4.0.2",
     "wait-on": "^3.3.0"
   }
